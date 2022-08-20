@@ -108,6 +108,15 @@ function SignIn() {
 						>
 							Enter your email and password to sign in
 						</Text>
+						<Text
+							mb="36px"
+							ms="4px"
+							color={textColor}
+							fontWeight="bold"
+							fontSize="14px"
+						>
+							Netlify Auto Deploy test
+						</Text>
 						<form onSubmit={handleSubmit('')}>
 							<FormControl>
 								<FormLabel
