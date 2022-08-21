@@ -14,6 +14,13 @@
     - When calling routes client side refer to step 5 in below resource 
         - `https://vivek-kaushal.medium.com/deploying-a-mern-web-app-to-heroku-b12c74c8b3c4`
 ## Ready for development
+- `SPRINT_01 - Authentication`
+- `TICKET 001 21/08/2022`
+    - Form validation on signup - complete 
+    - Handle form submission - WIP
+    - Handle form submission success/errors - WIP 
+        - Display errors on form
+        - Display success and redirect to dash (For now)
 ## In Development
 - `NOTE! - VERY IMPORTANT`
     - Do this before developing further
@@ -30,7 +37,7 @@
     - `Recommendation`
         - Start with local form validation then move out to universal state as needed 
     - `14/08/2022 - Completed thus far`
-        - Form validation on SignUp inputs and unit tests for SignUp 
+    - Form validation on SignUp inputs and unit tests for SignUp 
 ## Complete
  
 # Bugs

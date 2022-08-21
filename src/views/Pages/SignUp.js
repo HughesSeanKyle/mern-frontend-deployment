@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { setAlert } from '../../actions/alert';
 
 // Chakra imports
 import {
@@ -61,7 +63,7 @@ const schema = yup.object().shape({
 		.oneOf([yup.ref('password')], 'Passwords must and should match'),
 });
 
-function SignUp() {
+function SignUp(props) {
 	const {
 		register,
 		getValues,
@@ -77,6 +79,12 @@ function SignUp() {
 			passwordConfirm: '',
 		},
 	});
+
+	useEffect(() => {
+		if (!!errors?.passwordConfirm) {
+			props.setAlert('Passwords do not match', 'danger');
+		}
+	}, [errors]);
 
 	console.log('RHF Errors', errors);
 
@@ -489,4 +497,12 @@ function SignUp() {
 	);
 }
 
-export default SignUp;
+/*
+	Connect takes in two args 
+	1. Any state that should be mapped
+		- e.g get State from alert 
+		- for now == null  
+	2. Object with any actions needed to use in this component. The 'setState' of redux 
+		setAlert - Will allow access to props.SetAlert
+*/
+export default connect(null, { setAlert })(SignUp);
