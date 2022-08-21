@@ -15,13 +15,35 @@
         - `https://vivek-kaushal.medium.com/deploying-a-mern-web-app-to-heroku-b12c74c8b3c4`
 ## Ready for development
 - `SPRINT_01 - Authentication`
-- `TICKET 001 21/08/2022`
+- `TICKET 001 - SIGNUP 21/08/2022`
     - Form validation on signup - complete 
+    - Handle form submission - WIP
+        - 21/08/2022
+            - signup function created and connected to SignUp form 
+            - `Tasks`
+                - Have a look at RoboFriends app for more examples on redux 
+                - signup function must be wired via redux 
+                - The state for authentication 
+                    - auth : {
+                        token: JWT
+                    }
+    - Handle form submission success/errors - WIP 
+        - Display errors on form
+            - some initial logic set up for this via alert state. 
+        - Display success and redirect to dash (For now)
+- `TICKET 002 - SIGNIN 21/08/2022`
+    - Form validation on signup - WIP
     - Handle form submission - WIP
     - Handle form submission success/errors - WIP 
         - Display errors on form
         - Display success and redirect to dash (For now)
+
+- `TICKET 003 - Protect Admin routes 21/08/2022`
+    - Before implementing any new features 
+        - Make admin routes protected 
+
 ## In Development
+- `TICKET 001 - SIGNUP 21/08/2022`
 - `NOTE! - VERY IMPORTANT`
     - Do this before developing further
         - Deploy to Heroku and set up a deployment pipeline with github actions 

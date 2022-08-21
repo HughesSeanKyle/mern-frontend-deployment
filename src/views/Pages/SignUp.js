@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
+import { signup } from '../../api/auth/signup';
+
 import PropTypes from 'prop-types';
 
 // Chakra imports
@@ -88,6 +90,12 @@ function SignUp({ setAlert, alerts }) {
 			console.log(alerts);
 		}
 	}, [errors]);
+
+	// Helper function to handle signUp
+	const handleSignUp = async () => {
+		const { username, email, password } = getValues();
+		await signup(username, email, password);
+	};
 
 	console.log('RHF Errors', errors);
 
@@ -224,7 +232,7 @@ function SignUp({ setAlert, alerts }) {
 									<AlertTitle>{alerts[0]?.msg}</AlertTitle>
 								</Alert>
 							) : null}
-							<form onSubmit={handleSubmit('')}>
+							<form onSubmit={handleSubmit(handleSignUp)}>
 								<FormControl
 									isInvalid={!!errors?.username}
 									errortext={errors?.username?.message}
