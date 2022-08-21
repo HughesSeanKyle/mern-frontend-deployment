@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
 import { signup } from '../../api/auth/signup';
@@ -38,6 +38,7 @@ import signUpImage from 'assets/img/signUpImage.png';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { TRUE } from 'sass';
 
 const schema = yup.object().shape({
 	username: yup
@@ -83,6 +84,8 @@ function SignUp({ setAlert, alerts }) {
 		},
 	});
 
+	const [isSubmitLoading, setIsSubmitLoading] = useState(null);
+
 	console.log(alerts);
 	useEffect(() => {
 		if (!!errors?.passwordConfirm) {
@@ -93,8 +96,10 @@ function SignUp({ setAlert, alerts }) {
 
 	// Helper function to handle signUp
 	const handleSignUp = async () => {
+		setIsSubmitLoading(true);
 		const { username, email, password } = getValues();
 		await signup(username, email, password);
+		setIsSubmitLoading(false);
 	};
 
 	console.log('RHF Errors', errors);
@@ -423,7 +428,7 @@ function SignUp({ setAlert, alerts }) {
 										!!errors.passwordConfirm
 									}
 									data-testid="sign-up-button"
-									isLoading={isSubmitting}
+									isLoading={isSubmitLoading}
 									variant="brand"
 									fontSize="10px"
 									type="submit"
