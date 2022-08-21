@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
+import PropTypes from 'prop-types';
 
 // Chakra imports
 import {
@@ -63,7 +64,7 @@ const schema = yup.object().shape({
 		.oneOf([yup.ref('password')], 'Passwords must and should match'),
 });
 
-function SignUp(props) {
+function SignUp({ setAlert, alerts }) {
 	const {
 		register,
 		getValues,
@@ -80,9 +81,11 @@ function SignUp(props) {
 		},
 	});
 
+	console.log(alerts);
 	useEffect(() => {
 		if (!!errors?.passwordConfirm) {
-			props.setAlert('Passwords do not match', 'danger');
+			setAlert('Passwords do not match', 'danger');
+			console.log(alerts);
 		}
 	}, [errors]);
 
@@ -215,6 +218,12 @@ function SignUp(props) {
 							>
 								or
 							</Text>
+							{alerts[0]?.msg ? (
+								<Alert status="error">
+									<AlertIcon />
+									<AlertTitle>{alerts[0]?.msg}</AlertTitle>
+								</Alert>
+							) : null}
 							<form onSubmit={handleSubmit('')}>
 								<FormControl
 									isInvalid={!!errors?.username}
@@ -497,6 +506,18 @@ function SignUp(props) {
 	);
 }
 
+SignUp.propTypes = {
+	setAlert: PropTypes.func.isRequired,
+	alerts: PropTypes.array.isRequired,
+};
+
+// map the redux state to this components props so that function/component has access to it
+
+const mapStateToProps = (state) => ({
+	// Will now have props.alerts available to comp
+	alerts: state.alert,
+});
+
 /*
 	Connect takes in two args 
 	1. Any state that should be mapped
@@ -505,4 +526,4 @@ function SignUp(props) {
 	2. Object with any actions needed to use in this component. The 'setState' of redux 
 		setAlert - Will allow access to props.SetAlert
 */
-export default connect(null, { setAlert })(SignUp);
+export default connect(mapStateToProps, { setAlert })(SignUp);
