@@ -51,6 +51,16 @@ const schema = yup.object().shape({
 });
 
 function SignIn() {
+	var requestOptions = {
+		method: 'GET',
+		redirect: 'follow',
+	};
+
+	fetch('https://aqueous-retreat-11852.herokuapp.com/test-get', requestOptions)
+		.then((response) => response.text())
+		.then((result) => console.log(result))
+		.catch((error) => console.log('error', error));
+
 	const {
 		register,
 		getValues,
