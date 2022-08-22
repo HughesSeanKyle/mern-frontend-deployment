@@ -38,7 +38,6 @@ import signUpImage from 'assets/img/signUpImage.png';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { TRUE } from 'sass';
 
 const schema = yup.object().shape({
 	username: yup
