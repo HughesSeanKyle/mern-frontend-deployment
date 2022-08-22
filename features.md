@@ -27,6 +27,9 @@
                     - auth : {
                         token: JWT
                     }
+        - 22/08/2022
+            - Redux signup action set up. However, a cors issue returns. 
+                - Test the signup function without redux and see if issue still persists. 
     - Handle form submission success/errors - WIP 
         - Display errors on form
             - some initial logic set up for this via alert state. 

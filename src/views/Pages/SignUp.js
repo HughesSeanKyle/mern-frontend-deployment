@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
-import { signup } from '../../api/auth/signup';
+// Signup with redux
+import { signUp } from '../../actions/auth';
+// Signup without redux
+// import { signup } from '../../api/auth/signup';
 
 import PropTypes from 'prop-types';
 
@@ -66,7 +69,7 @@ const schema = yup.object().shape({
 		.oneOf([yup.ref('password')], 'Passwords must and should match'),
 });
 
-function SignUp({ setAlert, alerts }) {
+function SignUp({ setAlert, alerts, signUp }) {
 	const {
 		register,
 		getValues,
@@ -75,16 +78,9 @@ function SignUp({ setAlert, alerts }) {
 	} = useForm({
 		mode: 'onBlur',
 		resolver: yupResolver(schema),
-		defaultValues: {
-			username: '',
-			email: '',
-			password: '',
-			passwordConfirm: '',
-		},
 	});
 
-	const [isSubmitLoading, setIsSubmitLoading] = useState(null);
-
+	console.log('isSubmitting', isSubmitting);
 	console.log(alerts);
 	useEffect(() => {
 		if (!!errors?.passwordConfirm) {
@@ -94,11 +90,12 @@ function SignUp({ setAlert, alerts }) {
 	}, [errors]);
 
 	// Helper function to handle signUp
-	const handleSignUp = async () => {
-		setIsSubmitLoading(true);
-		const { username, email, password } = getValues();
-		await signup(username, email, password);
-		setIsSubmitLoading(false);
+	const handleSignUp = async (data, e) => {
+		// e.preventDefault();
+		console.log('data: ', data, 'e: ', e);
+		const { username, email, password } = data;
+		// const { username, email, password } = getValues();
+		await signUp({ username, email, password });
 	};
 
 	console.log('RHF Errors', errors);
@@ -427,7 +424,7 @@ function SignUp({ setAlert, alerts }) {
 										!!errors.passwordConfirm
 									}
 									data-testid="sign-up-button"
-									isLoading={isSubmitLoading}
+									isLoading={isSubmitting}
 									variant="brand"
 									fontSize="10px"
 									type="submit"
@@ -521,6 +518,7 @@ function SignUp({ setAlert, alerts }) {
 SignUp.propTypes = {
 	setAlert: PropTypes.func.isRequired,
 	alerts: PropTypes.array.isRequired,
+	signUp: PropTypes.func.isRequired,
 };
 
 // map the redux state to this components props so that function/component has access to it
@@ -538,4 +536,4 @@ const mapStateToProps = (state) => ({
 	2. Object with any actions needed to use in this component. The 'setState' of redux 
 		setAlert - Will allow access to props.SetAlert
 */
-export default connect(mapStateToProps, { setAlert })(SignUp);
+export default connect(mapStateToProps, { setAlert, signUp })(SignUp);
