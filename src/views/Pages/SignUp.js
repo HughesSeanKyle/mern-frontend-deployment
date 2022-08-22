@@ -1,5 +1,3 @@
-import React from 'react';
-
 // Chakra imports
 import {
 	Alert,
@@ -20,6 +18,13 @@ import {
 	Icon,
 	DarkMode,
 } from '@chakra-ui/react';
+
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { setAlert } from '../../actions/alert';
+import { signup } from '../../api/auth/signup';
+
+import PropTypes from 'prop-types';
 
 // Icons
 import { FaApple, FaFacebook, FaGoogle } from 'react-icons/fa';
@@ -61,7 +66,7 @@ const schema = yup.object().shape({
 		.oneOf([yup.ref('password')], 'Passwords must and should match'),
 });
 
-function SignUp() {
+function SignUp({ setAlert, alerts }) {
 	const {
 		register,
 		getValues,
@@ -77,6 +82,24 @@ function SignUp() {
 			passwordConfirm: '',
 		},
 	});
+
+	const [isSubmitLoading, setIsSubmitLoading] = useState(null);
+
+	console.log(alerts);
+	useEffect(() => {
+		if (!!errors?.passwordConfirm) {
+			setAlert('Passwords do not match', 'danger');
+			console.log(alerts);
+		}
+	}, [errors]);
+
+	// Helper function to handle signUp
+	const handleSignUp = async () => {
+		setIsSubmitLoading(true);
+		const { username, email, password } = getValues();
+		await signup(username, email, password);
+		setIsSubmitLoading(false);
+	};
 
 	console.log('RHF Errors', errors);
 
@@ -207,7 +230,13 @@ function SignUp() {
 							>
 								or
 							</Text>
-							<form onSubmit={handleSubmit('')}>
+							{alerts[0]?.msg ? (
+								<Alert status="error">
+									<AlertIcon />
+									<AlertTitle>{alerts[0]?.msg}</AlertTitle>
+								</Alert>
+							) : null}
+							<form onSubmit={handleSubmit(handleSignUp)}>
 								<FormControl
 									isInvalid={!!errors?.username}
 									errortext={errors?.username?.message}
@@ -398,7 +427,7 @@ function SignUp() {
 										!!errors.passwordConfirm
 									}
 									data-testid="sign-up-button"
-									isLoading={isSubmitting}
+									isLoading={isSubmitLoading}
 									variant="brand"
 									fontSize="10px"
 									type="submit"
@@ -489,4 +518,24 @@ function SignUp() {
 	);
 }
 
-export default SignUp;
+SignUp.propTypes = {
+	setAlert: PropTypes.func.isRequired,
+	alerts: PropTypes.array.isRequired,
+};
+
+// map the redux state to this components props so that function/component has access to it
+
+const mapStateToProps = (state) => ({
+	// Will now have props.alerts available to comp
+	alerts: state.alert,
+});
+
+/*
+	Connect takes in two args 
+	1. Any state that should be mapped
+		- e.g get State from alert 
+		- for now == null  
+	2. Object with any actions needed to use in this component. The 'setState' of redux 
+		setAlert - Will allow access to props.SetAlert
+*/
+export default connect(mapStateToProps, { setAlert })(SignUp);

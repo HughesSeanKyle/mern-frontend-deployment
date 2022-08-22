@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // Chakra imports
 import {
 	Alert,
@@ -65,6 +65,21 @@ function SignIn() {
 		},
 	});
 
+	useEffect(() => {
+		var requestOptions = {
+			method: 'GET',
+			redirect: 'follow',
+		};
+
+		fetch(
+			'https://aqueous-retreat-11852.herokuapp.com/test-get',
+			requestOptions
+		)
+			.then((response) => response.text())
+			.then((result) => console.log(result))
+			.catch((error) => console.log('error', error));
+	}, []);
+
 	const titleColor = 'white';
 	const textColor = 'gray.400';
 
@@ -107,6 +122,15 @@ function SignIn() {
 							fontSize="14px"
 						>
 							Enter your email and password to sign in
+						</Text>
+						<Text
+							mb="36px"
+							ms="4px"
+							color={textColor}
+							fontWeight="bold"
+							fontSize="14px"
+						>
+							Netlify Auto Deploy test
 						</Text>
 						<form onSubmit={handleSubmit('')}>
 							<FormControl>
