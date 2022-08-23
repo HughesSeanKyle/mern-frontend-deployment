@@ -1,12 +1,17 @@
-import { REGISTER_SUCCESS, REGISTER_FAIL } from './types';
+import {
+	REGISTER_SUCCESS,
+	REGISTER_FAIL,
+	USER_LOADED,
+	AUTH_ERROR,
+} from './types';
 
 // Register User
-export const signUp = ({ name, email, password }) => async (dispatch) => {
+export const signUp = ({ username, email, password }) => async (dispatch) => {
 	const myHeaders = new Headers();
 	myHeaders.append('Content-Type', 'application/json');
 
 	const raw = JSON.stringify({
-		name: name,
+		name: username,
 		email: email,
 		password: password,
 	});

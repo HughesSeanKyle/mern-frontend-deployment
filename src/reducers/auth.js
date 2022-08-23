@@ -5,6 +5,7 @@ const initialState = {
 	isAuthenticated: null,
 	loading: true,
 	user: null,
+	errors: null,
 };
 
 export default function (state = initialState, action) {
@@ -27,6 +28,7 @@ export default function (state = initialState, action) {
 				token: null,
 				isAuthenticated: false,
 				loading: false,
+				errors: payload,
 			};
 		default:
 			return state;

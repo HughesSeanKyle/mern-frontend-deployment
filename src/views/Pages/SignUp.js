@@ -4,7 +4,7 @@ import { setAlert } from '../../actions/alert';
 // Signup with redux
 import { signUp } from '../../actions/auth';
 // Signup without redux
-// import { signup } from '../../api/auth/signup';
+import { signup } from '../../api/auth/signup';
 
 import PropTypes from 'prop-types';
 
@@ -90,12 +90,15 @@ function SignUp({ setAlert, alerts, signUp }) {
 	}, [errors]);
 
 	// Helper function to handle signUp
-	const handleSignUp = async (data, e) => {
+	const handleSignUp = async ({ username, email, password }, e) => {
 		// e.preventDefault();
-		console.log('data: ', data, 'e: ', e);
-		const { username, email, password } = data;
+		// console.log('data: ', data, 'e: ', e);
+		// const { username, email, password } = data;
 		// const { username, email, password } = getValues();
 		await signUp({ username, email, password });
+
+		// *Works
+		// await signup(username, email, password);
 	};
 
 	console.log('RHF Errors', errors);
