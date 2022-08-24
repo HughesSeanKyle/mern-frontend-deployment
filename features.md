@@ -38,8 +38,10 @@
             - actions/auth/loadUser(f)
                 - This function must be run inside Admin and Auth Layout 
                     - then check location 
-                        - if includes admin and no token redirect to auth signin 
-    - Handle form submission success/errors - WIP 
+                        - if includes admin and no token redirect to auth signin  
+    - Protect Admin Route 
+        - complete 24/08/
+    - Handle form submission success/errors - WIP `24/08 <____Continue here`
         - For example bring in errors from server. Create redux state for it
         - Display errors on form
             - some initial logic set up for this via alert state. 

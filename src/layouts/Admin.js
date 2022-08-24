@@ -6,6 +6,7 @@ import Footer from 'components/Footer/Footer.js';
 import { connect } from 'react-redux';
 import { loadUser } from 'actions/auth';
 import setAuthToken from 'utils/setAuthToken';
+import store from '../store';
 // Layout components
 import AdminNavbar from 'components/Navbars/AdminNavbar.js';
 import Sidebar from 'components/Sidebar/Sidebar.js';
@@ -51,6 +52,7 @@ function Dashboard(props) {
 
 		// Pass isAuthenticated down to all children of this route. If isAuthenticated is false (E.g token expires or invalid) then redirect user to auth/signin
 		props.loadUser();
+		// Alternative to fire loadUser (above)
 		// store.dispatch(loadUser());
 		// Specify how to clean up after this effect:
 		return function cleanup() {};
