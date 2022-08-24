@@ -31,9 +31,19 @@ function Dashboard(props) {
 	React.useEffect(() => {
 		console.log('authState', props.authState);
 		// If no valid JWT redirect to auth
-		if (!props.authState.isAuthenticated) {
+		// const checkAuthState = async () => {
+		// 	let authStatus = await props.authState.isAuthenticated;
+		// 	if (authStatus === false) {
+		// 		rest.history.push('/auth');
+		// 	}
+		// };
+
+		// checkAuthState();
+
+		if (props.authState.isAuthenticated === false) {
 			rest.history.push('/auth');
 		}
+
 		if (localStorage.token) {
 			// Set auth-x-token as default header in axios call
 			setAuthToken(localStorage.token);
