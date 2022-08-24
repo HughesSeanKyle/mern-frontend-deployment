@@ -4,7 +4,9 @@ import { setAlert } from '../../actions/alert';
 // Signup with redux
 import { signUp } from '../../actions/auth';
 // Signup without redux
-// import { signup } from '../../api/auth/signup';
+import { signup } from '../../api/auth/signup';
+import { loadUser } from '../../actions/auth';
+import setAuthToken from 'utils/setAuthToken';
 
 import PropTypes from 'prop-types';
 
@@ -70,6 +72,8 @@ const schema = yup.object().shape({
 });
 
 function SignUp({ setAlert, alerts, signUp }) {
+	loadUser();
+
 	const {
 		register,
 		getValues,
@@ -90,12 +94,15 @@ function SignUp({ setAlert, alerts, signUp }) {
 	}, [errors]);
 
 	// Helper function to handle signUp
-	const handleSignUp = async (data, e) => {
+	const handleSignUp = async ({ username, email, password }, e) => {
 		// e.preventDefault();
-		console.log('data: ', data, 'e: ', e);
-		const { username, email, password } = data;
+		// console.log('data: ', data, 'e: ', e);
+		// const { username, email, password } = data;
 		// const { username, email, password } = getValues();
 		await signUp({ username, email, password });
+
+		// *Works
+		// await signup(username, email, password);
 	};
 
 	console.log('RHF Errors', errors);
@@ -517,6 +524,7 @@ function SignUp({ setAlert, alerts, signUp }) {
 
 SignUp.propTypes = {
 	setAlert: PropTypes.func.isRequired,
+	loadUser: PropTypes.func.isRequired,
 	alerts: PropTypes.array.isRequired,
 	signUp: PropTypes.func.isRequired,
 };
@@ -536,4 +544,4 @@ const mapStateToProps = (state) => ({
 	2. Object with any actions needed to use in this component. The 'setState' of redux 
 		setAlert - Will allow access to props.SetAlert
 */
-export default connect(mapStateToProps, { setAlert, signUp })(SignUp);
+export default connect(mapStateToProps, { setAlert, signUp, loadUser })(SignUp);

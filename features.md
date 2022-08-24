@@ -17,7 +17,7 @@
 - `SPRINT_01 - Authentication`
 - `TICKET 001 - SIGNUP 21/08/2022`
     - Form validation on signup - complete 
-    - Handle form submission - WIP
+    - Handle form submission - `23/08/ - Complete`
         - 21/08/2022
             - signup function created and connected to SignUp form 
             - `Tasks`
@@ -30,7 +30,19 @@
         - 22/08/2022
             - Redux signup action set up. However, a cors issue returns. 
                 - Test the signup function without redux and see if issue still persists. 
-    - Handle form submission success/errors - WIP 
+            - `23/08/`
+                - Update 
+                    - Was not a cors issue but a bad request 
+                    - Bug resolved 
+        - `24/08/`
+            - actions/auth/loadUser(f)
+                - This function must be run inside Admin and Auth Layout 
+                    - then check location 
+                        - if includes admin and no token redirect to auth signin  
+    - Protect Admin Route 
+        - complete 24/08/
+    - Handle form submission success/errors - WIP `24/08 <____Continue here`
+        - For example bring in errors from server. Create redux state for it
         - Display errors on form
             - some initial logic set up for this via alert state. 
         - Display success and redirect to dash (For now)
@@ -73,6 +85,11 @@
 
 # Chores
 ## BackLog
+`23/08/ - Authentication`
+- Change the token storage from Local to session 
+    - This will ensure that when a user closes window that session storage will be cleared 
+        - Better for security purposes 
+    - Session storage can also be timed to expire   
 ## Ready for development
 ## In Development 
 ## Complete
