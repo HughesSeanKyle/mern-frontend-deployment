@@ -34,6 +34,11 @@
                 - Update 
                     - Was not a cors issue but a bad request 
                     - Bug resolved 
+        - `24/08/`
+            - actions/auth/loadUser(f)
+                - This function must be run inside Admin and Auth Layout 
+                    - then check location 
+                        - if includes admin and no token redirect to auth signin 
     - Handle form submission success/errors - WIP 
         - For example bring in errors from server. Create redux state for it
         - Display errors on form

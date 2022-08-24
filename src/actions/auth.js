@@ -5,9 +5,38 @@ import {
 	USER_LOADED,
 	AUTH_ERROR,
 } from './types';
+import setAuthToken from '../utils/setAuthToken';
 
 // Load User
-// export const loadUser = () => async (dispatch) => {};
+/* 
+	- This function should be run inside a useEffect in the Admin layout comp. Everytime a view connected to the admin route is hit loadUser will run. Do auth check from there onward.   
+*/
+export const loadUser = () => async (dispatch) => {
+	console.log('loadUser running..');
+
+	// Set auth header with token if there is one
+	if (localStorage.token) {
+		// Set auth-x-token as default header in axios call
+		setAuthToken(localStorage.token);
+	}
+
+	try {
+		const res = await axios.get(
+			'https://aqueous-retreat-11852.herokuapp.com/api/auth'
+		);
+
+		console.log('res loadUser', res);
+
+		dispatch({
+			type: USER_LOADED,
+			payload: res.data,
+		});
+	} catch (error) {
+		dispatch({
+			type: AUTH_ERROR,
+		});
+	}
+};
 
 // Register User fetch
 // export const signUp = ({ username, email, password }) => async (dispatch) => {
