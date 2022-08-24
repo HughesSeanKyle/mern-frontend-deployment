@@ -1,6 +1,7 @@
 // chakra imports
 import { Box, ChakraProvider, Portal } from '@chakra-ui/react';
 import Footer from 'components/Footer/Footer.js';
+// React-redux
 import { connect } from 'react-redux';
 import { loadUser } from 'actions/auth';
 import setAuthToken from 'utils/setAuthToken';
@@ -31,9 +32,8 @@ function Pages(props) {
 			setAuthToken(localStorage.token);
 		}
 
-		// Do not use retuned values as state
-		// const loadedUser = loadUser();
-		// console.log('loadedUser', loadedUser);
+		props.loadUser();
+		// store.dispatch(loadUser());
 		// Specify how to clean up after this effect:
 		return function cleanup() {};
 	}, []);
