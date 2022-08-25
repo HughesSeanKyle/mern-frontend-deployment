@@ -111,25 +111,31 @@ export const signUp = ({ username, email, password }) => async (dispatch) => {
 	} catch (err) {
 		console.log('err', err.response.data);
 
+		dispatch({
+			type: REGISTER_FAIL,
+			// Payload must always be an object
+			payload: err.response.data.errors,
+		});
+
 		// if (err.response.data.errors.length > 0) {
 		// 	console.log('We have a signup error');
 		// }
-		err.response.data.errors.map((error) => {
-			if (error.msg == 'User already exists') {
-				console.log('error.msg', error.msg);
-				// Handle status 400 error
-				dispatch({
-					type: REGISTER_FAIL,
-					// Payload must always be an object
-					payload: error,
-				});
-			} else {
-				dispatch({
-					type: REGISTER_FAIL,
-					// Payload must always be an object
-					payload: err,
-				});
-			}
-		});
+		// err.response.data.errors.map((error) => {
+		// 	if (error.msg == 'User already exists') {
+		// 		console.log('error.msg', error.msg);
+		// 		// Handle status 400 error
+		// 		dispatch({
+		// 			type: REGISTER_FAIL,
+		// 			// Payload must always be an object
+		// 			payload: error,
+		// 		});
+		// 	} else {
+		// 		dispatch({
+		// 			type: REGISTER_FAIL,
+		// 			// Payload must always be an object
+		// 			payload: err.response.data.errors,
+		// 		});
+		// 	}
+		// });
 	}
 };

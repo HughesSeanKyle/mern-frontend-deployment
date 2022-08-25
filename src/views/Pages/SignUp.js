@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
 // Signup with redux
@@ -7,6 +7,7 @@ import { signUp } from '../../actions/auth';
 import { signup } from '../../api/auth/signup';
 import { loadUser } from '../../actions/auth';
 import setAuthToken from 'utils/setAuthToken';
+import store from '../../store';
 
 import PropTypes from 'prop-types';
 
@@ -71,8 +72,9 @@ const schema = yup.object().shape({
 		.oneOf([yup.ref('password')], 'Passwords must and should match'),
 });
 
-function SignUp({ setAlert, alerts, signUp }) {
-	loadUser();
+function SignUp(props) {
+	const { setAlert, alerts, signUp } = props;
+	// console.log('Errors from SignUp', auth);
 
 	const {
 		register,
@@ -86,12 +88,40 @@ function SignUp({ setAlert, alerts, signUp }) {
 
 	console.log('isSubmitting', isSubmitting);
 	console.log(alerts);
+
+	const [signUpError, setSignUpError] = useState(null);
+	const signUpErrorRef = useRef(null);
+
 	useEffect(() => {
-		if (!!errors?.passwordConfirm) {
-			setAlert('Passwords do not match', 'danger');
-			console.log(alerts);
+		const { auth } = store.getState();
+
+		if (auth.errors) {
+			if (auth.errors.length > 0) {
+				setSignUpError(auth.errors[0].msg);
+				signUpErrorRef.current = auth.errors[0].msg;
+			}
 		}
-	}, [errors]);
+		console.log('signUpError', signUpError);
+		console.log('authState', auth);
+
+		// if (authState && authState.auth.errors[0].msg) {
+		// 	console.log(
+		// 		'authState?.auth?.errors[0]?.msg',
+		// 		authState.auth.errors[0].msg
+		// 	);
+		// }
+
+		// if (store.getState()?.auth?.errors[0]?.msg) {
+		// 	setSignUpError(store.getState().auth?.errors[0]?.msg);
+		// }
+		// authState = ;
+		// if (!!errors?.passwordConfirm) {
+		// 	setAlert('Passwords do not match', 'danger');
+		// 	console.log(alerts);
+		// }
+	}, []);
+
+	console.log('signUpError', signUpError);
 
 	// Helper function to handle signUp
 	const handleSignUp = async ({ username, email, password }, e) => {
@@ -234,10 +264,12 @@ function SignUp({ setAlert, alerts, signUp }) {
 							>
 								or
 							</Text>
-							{alerts[0]?.msg ? (
+							{signUpError || signUpErrorRef.current ? (
 								<Alert status="error">
 									<AlertIcon />
-									<AlertTitle>{alerts[0]?.msg}</AlertTitle>
+									<AlertTitle>
+										{signUpError || signUpErrorRef.current}
+									</AlertTitle>
 								</Alert>
 							) : null}
 							<form onSubmit={handleSubmit(handleSignUp)}>
@@ -247,7 +279,7 @@ function SignUp({ setAlert, alerts, signUp }) {
 								>
 									<FormLabel
 										color={titleColor}
-										ms="4px"
+										ms="4p"
 										fontSize="sm"
 										fontWeight="normal"
 									>
@@ -525,6 +557,7 @@ function SignUp({ setAlert, alerts, signUp }) {
 SignUp.propTypes = {
 	setAlert: PropTypes.func.isRequired,
 	loadUser: PropTypes.func.isRequired,
+	auth: PropTypes.object.isRequired,
 	alerts: PropTypes.array.isRequired,
 	signUp: PropTypes.func.isRequired,
 };
@@ -534,6 +567,7 @@ SignUp.propTypes = {
 const mapStateToProps = (state) => ({
 	// Will now have props.alerts available to comp
 	alerts: state.alert,
+	auth: state.errors,
 });
 
 /*
