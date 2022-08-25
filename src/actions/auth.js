@@ -96,6 +96,12 @@ export const signUp = ({ username, email, password }) => async (dispatch) => {
 			config
 		);
 
+		// console.log('resSignUp', res);
+
+		// if (res.data.errors) {
+		// 	console.log('errors', res.data.errors);
+		// }
+
 		dispatch({
 			type: REGISTER_SUCCESS,
 			payload: res.data,
@@ -103,8 +109,27 @@ export const signUp = ({ username, email, password }) => async (dispatch) => {
 
 		//   dispatch(loadUser());
 	} catch (err) {
-		dispatch({
-			type: REGISTER_FAIL,
+		console.log('err', err.response.data);
+
+		// if (err.response.data.errors.length > 0) {
+		// 	console.log('We have a signup error');
+		// }
+		err.response.data.errors.map((error) => {
+			if (error.msg == 'User already exists') {
+				console.log('error.msg', error.msg);
+				// Handle status 400 error
+				dispatch({
+					type: REGISTER_FAIL,
+					// Payload must always be an object
+					payload: error,
+				});
+			} else {
+				dispatch({
+					type: REGISTER_FAIL,
+					// Payload must always be an object
+					payload: err,
+				});
+			}
 		});
 	}
 };
