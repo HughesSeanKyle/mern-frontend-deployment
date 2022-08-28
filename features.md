@@ -54,7 +54,7 @@
         - Display success and redirect to dash (For now)
 
 - `TICKET 003 - Protect Admin routes 21/08/2022`
-    - Before implementing any new features 
+    - Before implementing any new features (`25/08/ - Done`)
         - Make admin routes protected 
 
 ## In Development

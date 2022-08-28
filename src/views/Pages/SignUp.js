@@ -73,8 +73,11 @@ const schema = yup.object().shape({
 });
 
 function SignUp(props) {
-	const { setAlert, alerts, signUp } = props;
+	const { setAlert, alerts, signUp, auth } = props;
+	// const { auth } = store.getState();
 	// console.log('Errors from SignUp', auth);
+	console.log('alertsState', alerts);
+	console.log('authState', auth);
 
 	const {
 		register,
@@ -87,49 +90,56 @@ function SignUp(props) {
 	});
 
 	console.log('isSubmitting', isSubmitting);
-	console.log(alerts);
 
 	const [signUpError, setSignUpError] = useState(null);
 	const signUpErrorRef = useRef(null);
 
 	useEffect(() => {
-		const { auth } = store.getState();
-
 		if (auth.errors) {
-			if (auth.errors.length > 0) {
-				setSignUpError(auth.errors[0].msg);
-				signUpErrorRef.current = auth.errors[0].msg;
-			}
+			console.log('Huston we got an error');
+			// can handle specific status code errors from here
+			setSignUpError(auth.errors[0].msg);
 		}
-		console.log('signUpError', signUpError);
-		console.log('authState', auth);
+	}, [auth.errors]);
 
-		// if (authState && authState.auth.errors[0].msg) {
-		// 	console.log(
-		// 		'authState?.auth?.errors[0]?.msg',
-		// 		authState.auth.errors[0].msg
-		// 	);
-		// }
+	// useEffect(() => {
+	// 	const { auth } = store.getState();
 
-		// if (store.getState()?.auth?.errors[0]?.msg) {
-		// 	setSignUpError(store.getState().auth?.errors[0]?.msg);
-		// }
-		// authState = ;
-		// if (!!errors?.passwordConfirm) {
-		// 	setAlert('Passwords do not match', 'danger');
-		// 	console.log(alerts);
-		// }
-	}, []);
+	// 	if (auth.errors) {
+	// 		if (auth.errors.length > 0) {
+	// 			setSignUpError(auth.errors[0].msg);
+	// 			signUpErrorRef.current = auth.errors[0].msg;
+	// 		}
+	// 	}
+	// 	console.log('signUpError', signUpError);
+	// 	console.log('authState', auth);
+
+	// 	// if (authState && authState.auth.errors[0].msg) {
+	// 	// 	console.log(
+	// 	// 		'authState?.auth?.errors[0]?.msg',
+	// 	// 		authState.auth.errors[0].msg
+	// 	// 	);
+	// 	// }
+
+	// 	// if (store.getState()?.auth?.errors[0]?.msg) {
+	// 	// 	setSignUpError(store.getState().auth?.errors[0]?.msg);
+	// 	// }
+	// 	// authState = ;
+	// 	// if (!!errors?.passwordConfirm) {
+	// 	// 	setAlert('Passwords do not match', 'danger');
+	// 	// 	console.log(alerts);
+	// 	// }
+	// }, []);
 
 	console.log('signUpError', signUpError);
 
 	// Helper function to handle signUp
 	const handleSignUp = async ({ username, email, password }, e) => {
-		// e.preventDefault();
-		// console.log('data: ', data, 'e: ', e);
-		// const { username, email, password } = data;
-		// const { username, email, password } = getValues();
-		await signUp({ username, email, password });
+		try {
+			await signUp({ username, email, password });
+		} catch (err) {
+			console.log('err', err.message);
+		}
 
 		// *Works
 		// await signup(username, email, password);
@@ -264,12 +274,10 @@ function SignUp(props) {
 							>
 								or
 							</Text>
-							{signUpError || signUpErrorRef.current ? (
-								<Alert status="error">
+							{signUpError ? (
+								<Alert mb="18px" status="error">
 									<AlertIcon />
-									<AlertTitle>
-										{signUpError || signUpErrorRef.current}
-									</AlertTitle>
+									<AlertTitle>{signUpError}</AlertTitle>
 								</Alert>
 							) : null}
 							<form onSubmit={handleSubmit(handleSignUp)}>
@@ -567,7 +575,7 @@ SignUp.propTypes = {
 const mapStateToProps = (state) => ({
 	// Will now have props.alerts available to comp
 	alerts: state.alert,
-	auth: state.errors,
+	auth: state.auth,
 });
 
 /*
