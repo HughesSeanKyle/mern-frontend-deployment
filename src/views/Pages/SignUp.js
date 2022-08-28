@@ -95,44 +95,19 @@ function SignUp(props) {
 	const signUpErrorRef = useRef(null);
 
 	useEffect(() => {
+		if (auth.signUpSuccess) {
+			console.log('Huston you have go for dashboard. Redirecting..');
+			props.history.push('/admin/dashboard');
+		}
+
+		// Side effect for when auth state contains any errors
 		if (auth.errors) {
 			console.log('Huston we got an error');
 			// can handle specific status code errors from here
 			setSignUpError(auth.errors[0].msg);
 			signUpErrorRef.current?.scrollIntoView();
 		}
-	}, [auth.errors]);
-
-	// useEffect(() => {
-	// 	const { auth } = store.getState();
-
-	// 	if (auth.errors) {
-	// 		if (auth.errors.length > 0) {
-	// 			setSignUpError(auth.errors[0].msg);
-	// 			signUpErrorRef.current = auth.errors[0].msg;
-	// 		}
-	// 	}
-	// 	console.log('signUpError', signUpError);
-	// 	console.log('authState', auth);
-
-	// 	// if (authState && authState.auth.errors[0].msg) {
-	// 	// 	console.log(
-	// 	// 		'authState?.auth?.errors[0]?.msg',
-	// 	// 		authState.auth.errors[0].msg
-	// 	// 	);
-	// 	// }
-
-	// 	// if (store.getState()?.auth?.errors[0]?.msg) {
-	// 	// 	setSignUpError(store.getState().auth?.errors[0]?.msg);
-	// 	// }
-	// 	// authState = ;
-	// 	// if (!!errors?.passwordConfirm) {
-	// 	// 	setAlert('Passwords do not match', 'danger');
-	// 	// 	console.log(alerts);
-	// 	// }
-	// }, []);
-
-	console.log('signUpError', signUpError);
+	}, [auth]);
 
 	// Helper function to handle signUp
 	const handleSignUp = async ({ username, email, password }, e) => {

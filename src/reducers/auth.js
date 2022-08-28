@@ -11,6 +11,7 @@ const initialState = {
 	loading: true,
 	user: null,
 	errors: null,
+	signUpSuccess: null,
 };
 
 export default function (state = initialState, action) {
@@ -24,6 +25,7 @@ export default function (state = initialState, action) {
 				isAuthenticated: true,
 				loading: false,
 				user: payload,
+				errors: null,
 			};
 		case REGISTER_SUCCESS:
 			localStorage.setItem('token', payload.token);
@@ -32,6 +34,8 @@ export default function (state = initialState, action) {
 				...payload,
 				isAuthenticated: true,
 				loading: false,
+				signUpSuccess: 'Welcome, your sign up was successful',
+				errors: null,
 			};
 		// Both cases below will run the same logic
 		case REGISTER_FAIL:
@@ -44,6 +48,7 @@ export default function (state = initialState, action) {
 				isAuthenticated: false,
 				loading: false,
 				errors: payload,
+				signUpSuccess: null,
 			};
 		default:
 			return state;

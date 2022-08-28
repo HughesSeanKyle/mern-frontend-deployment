@@ -1,7 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import { connect } from 'react-redux';
+// Import redux action here. Simple action to clear signUp success state inside of use effect cleanup function
+// Examples
+import { setAlert } from '../../actions/alert';
+// Signup with redux
+import { signUp } from '../../actions/auth';
+import { loadUser } from '../../actions/auth';
+
+import PropTypes from 'prop-types';
 
 // Chakra imports
 import {
+	Alert,
+	AlertIcon,
+	AlertTitle,
+	AlertDescription,
 	Box,
 	Button,
 	Flex,
@@ -63,12 +76,33 @@ import {
 } from 'variables/charts';
 import { dashboardTableData, timelineData } from 'variables/general';
 
-export default function Dashboard() {
+function Dashboard(props) {
+	const { setAlert, alerts, signUp, auth } = props;
+	const signUpSuccessRef = useRef();
+
+	console.log('alertsState', alerts);
+	console.log('authState', auth);
+
+	useEffect(() => {
+		if (auth.signUpSuccess) {
+			signUpSuccessRef.current?.scrollIntoView();
+		}
+
+		return () => {
+			// Run action here to clear signUpSuccess msg
+		};
+	});
 	return (
 		<Flex flexDirection="column" pt={{ base: '120px', md: '75px' }}>
 			<SimpleGrid columns={{ sm: 1, md: 2, xl: 4 }} spacing="24px">
 				{/* MiniStatistics Card */}
-				<Card>
+				<Card ref={signUpSuccessRef}>
+					{auth.signUpSuccess ? (
+						<Alert mb="18px" status="success">
+							<AlertIcon />
+							<AlertTitle>{auth.signUpSuccess}</AlertTitle>
+						</Alert>
+					) : null}
 					<CardBody>
 						<Flex flexDirection="row" align="center" justify="center" w="100%">
 							<Stat me="auto">
@@ -772,3 +806,21 @@ export default function Dashboard() {
 		</Flex>
 	);
 }
+
+Dashboard.propTypes = {
+	setAlert: PropTypes.func.isRequired,
+	loadUser: PropTypes.func.isRequired,
+	auth: PropTypes.object.isRequired,
+	alerts: PropTypes.array.isRequired,
+	signUp: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+	// Will now have props.alerts available to comp
+	alerts: state.alert,
+	auth: state.auth,
+});
+
+export default connect(mapStateToProps, { setAlert, signUp, loadUser })(
+	Dashboard
+);
