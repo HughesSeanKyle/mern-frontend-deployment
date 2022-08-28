@@ -52,8 +52,9 @@
 
             - Todo still 
                 - 1. Auto scroll to top of signup on signUp error (a ref is needed)
-                - 1. Redirect to Dash on signUp 
-                - 2. SignUp success feedback and dash (for now) 
+                    - Done 28/08
+                - 2. Redirect to Dash on signUp 
+                - 3. SignUp success feedback and dash (for now) 
 - `TICKET 002 - SIGNIN 21/08/2022`
     - Form validation on signup - WIP
     - Handle form submission - WIP

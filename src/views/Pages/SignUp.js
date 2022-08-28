@@ -99,6 +99,7 @@ function SignUp(props) {
 			console.log('Huston we got an error');
 			// can handle specific status code errors from here
 			setSignUpError(auth.errors[0].msg);
+			signUpErrorRef.current?.scrollIntoView();
 		}
 	}, [auth.errors]);
 
@@ -191,6 +192,7 @@ function SignUp(props) {
 								fontWeight="bold"
 								textAlign="center"
 								mb="22px"
+								ref={signUpErrorRef}
 							>
 								Register With
 							</Text>
