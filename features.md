@@ -46,6 +46,14 @@
         - Display errors on form
             - some initial logic set up for this via alert state. 
         - Display success and redirect to dash (For now)
+
+        - `28/08 - UPDATE`
+            - Err on signUp displays immediately 
+
+            - Todo still 
+                - 1. Auto scroll to top of signup on signUp error (a ref is needed)
+                - 1. Redirect to Dash on signUp 
+                - 2. SignUp success feedback and dash (for now) 
 - `TICKET 002 - SIGNIN 21/08/2022`
     - Form validation on signup - WIP
     - Handle form submission - WIP
