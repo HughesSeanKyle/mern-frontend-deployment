@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
 // Signup with redux
@@ -7,6 +7,7 @@ import { signUp } from '../../actions/auth';
 import { signup } from '../../api/auth/signup';
 import { loadUser } from '../../actions/auth';
 import setAuthToken from 'utils/setAuthToken';
+import store from '../../store';
 
 import PropTypes from 'prop-types';
 
@@ -71,8 +72,12 @@ const schema = yup.object().shape({
 		.oneOf([yup.ref('password')], 'Passwords must and should match'),
 });
 
-function SignUp({ setAlert, alerts, signUp }) {
-	loadUser();
+function SignUp(props) {
+	const { setAlert, alerts, signUp, auth } = props;
+	// const { auth } = store.getState();
+	// console.log('Errors from SignUp', auth);
+	console.log('alertsState', alerts);
+	console.log('authState', auth);
 
 	const {
 		register,
@@ -85,21 +90,32 @@ function SignUp({ setAlert, alerts, signUp }) {
 	});
 
 	console.log('isSubmitting', isSubmitting);
-	console.log(alerts);
+
+	const [signUpError, setSignUpError] = useState(null);
+	const signUpErrorRef = useRef(null);
+
 	useEffect(() => {
-		if (!!errors?.passwordConfirm) {
-			setAlert('Passwords do not match', 'danger');
-			console.log(alerts);
+		if (auth.signUpSuccess) {
+			console.log('Huston you have go for dashboard. Redirecting..');
+			props.history.push('/admin/dashboard');
 		}
-	}, [errors]);
+
+		// Side effect for when auth state contains any errors
+		if (auth.errors) {
+			console.log('Huston we got an error');
+			// can handle specific status code errors from here
+			setSignUpError(auth.errors[0].msg);
+			signUpErrorRef.current?.scrollIntoView();
+		}
+	}, [auth]);
 
 	// Helper function to handle signUp
 	const handleSignUp = async ({ username, email, password }, e) => {
-		// e.preventDefault();
-		// console.log('data: ', data, 'e: ', e);
-		// const { username, email, password } = data;
-		// const { username, email, password } = getValues();
-		await signUp({ username, email, password });
+		try {
+			await signUp({ username, email, password });
+		} catch (err) {
+			console.log('err', err.message);
+		}
 
 		// *Works
 		// await signup(username, email, password);
@@ -151,6 +167,7 @@ function SignUp({ setAlert, alerts, signUp }) {
 								fontWeight="bold"
 								textAlign="center"
 								mb="22px"
+								ref={signUpErrorRef}
 							>
 								Register With
 							</Text>
@@ -234,10 +251,10 @@ function SignUp({ setAlert, alerts, signUp }) {
 							>
 								or
 							</Text>
-							{alerts[0]?.msg ? (
-								<Alert status="error">
+							{signUpError ? (
+								<Alert mb="18px" status="error">
 									<AlertIcon />
-									<AlertTitle>{alerts[0]?.msg}</AlertTitle>
+									<AlertTitle>{signUpError}</AlertTitle>
 								</Alert>
 							) : null}
 							<form onSubmit={handleSubmit(handleSignUp)}>
@@ -247,7 +264,7 @@ function SignUp({ setAlert, alerts, signUp }) {
 								>
 									<FormLabel
 										color={titleColor}
-										ms="4px"
+										ms="4p"
 										fontSize="sm"
 										fontWeight="normal"
 									>
@@ -525,6 +542,7 @@ function SignUp({ setAlert, alerts, signUp }) {
 SignUp.propTypes = {
 	setAlert: PropTypes.func.isRequired,
 	loadUser: PropTypes.func.isRequired,
+	auth: PropTypes.object.isRequired,
 	alerts: PropTypes.array.isRequired,
 	signUp: PropTypes.func.isRequired,
 };
@@ -534,6 +552,7 @@ SignUp.propTypes = {
 const mapStateToProps = (state) => ({
 	// Will now have props.alerts available to comp
 	alerts: state.alert,
+	auth: state.auth,
 });
 
 /*

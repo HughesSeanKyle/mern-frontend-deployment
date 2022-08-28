@@ -38,43 +38,6 @@ export const loadUser = () => async (dispatch) => {
 	}
 };
 
-// Register User fetch
-// export const signUp = ({ username, email, password }) => async (dispatch) => {
-// 	const myHeaders = new Headers();
-// 	myHeaders.append('Content-Type', 'application/json');
-
-// 	const raw = JSON.stringify({
-// 		name: username,
-// 		email: email,
-// 		password: password,
-// 	});
-
-// 	const requestOptions = {
-// 		method: 'POST',
-// 		headers: myHeaders,
-// 		body: raw,
-// 		redirect: 'follow',
-// 	};
-
-// 	fetch('https://aqueous-retreat-11852.herokuapp.com/api/user', requestOptions)
-// 		.then((response) => response.json())
-// 		.then((result) => {
-// 			// Note token to be received here and must be stored to state
-// 			// result must be returned
-// 			// When status 200 okay
-// 			console.log(result);
-// 			dispatch({
-// 				type: REGISTER_SUCCESS,
-// 				payload: result,
-// 			});
-// 		})
-// 		.catch((error) => {
-// 			dispatch({
-// 				type: REGISTER_FAIL,
-// 			});
-// 		});
-// };
-
 // Register a user axios
 export const signUp = ({ username, email, password }) => async (dispatch) => {
 	const config = {
@@ -96,6 +59,12 @@ export const signUp = ({ username, email, password }) => async (dispatch) => {
 			config
 		);
 
+		// console.log('resSignUp', res);
+
+		// if (res.data.errors) {
+		// 	console.log('errors', res.data.errors);
+		// }
+
 		dispatch({
 			type: REGISTER_SUCCESS,
 			payload: res.data,
@@ -103,8 +72,12 @@ export const signUp = ({ username, email, password }) => async (dispatch) => {
 
 		//   dispatch(loadUser());
 	} catch (err) {
+		console.log('err', err.response.data);
+
 		dispatch({
 			type: REGISTER_FAIL,
+			// Payload must always be an object
+			payload: err.response.data.errors,
 		});
 	}
 };

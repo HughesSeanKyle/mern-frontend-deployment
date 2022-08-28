@@ -1,5 +1,6 @@
 import { SET_ALERT, REMOVE_ALERT } from '../actions/types';
 
+console.log('Change code');
 // Init state for alerts
 const initialState = [];
 

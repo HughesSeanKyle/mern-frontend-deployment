@@ -24,6 +24,8 @@ import PanelContent from '../components/Layout/PanelContent';
 import PropTypes from 'prop-types';
 
 function Dashboard(props) {
+	console.log('Admin props', props);
+
 	const location = useLocation();
 	const { ...rest } = props;
 

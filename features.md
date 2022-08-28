@@ -15,7 +15,7 @@
         - `https://vivek-kaushal.medium.com/deploying-a-mern-web-app-to-heroku-b12c74c8b3c4`
 ## Ready for development
 - `SPRINT_01 - Authentication`
-- `TICKET 001 - SIGNUP 21/08/2022`
+- `TICKET 001 - SIGNUP 21/08/2022` ***Ticket complete 28/08/2022
     - Form validation on signup - complete 
     - Handle form submission - `23/08/ - Complete`
         - 21/08/2022
@@ -41,11 +41,22 @@
                         - if includes admin and no token redirect to auth signin  
     - Protect Admin Route 
         - complete 24/08/
-    - Handle form submission success/errors - WIP `24/08 <____Continue here`
+    - Handle form submission success/errors  `28/08 Complete`
         - For example bring in errors from server. Create redux state for it
         - Display errors on form
             - some initial logic set up for this via alert state. 
         - Display success and redirect to dash (For now)
+
+        - `28/08 - UPDATE`
+            - Err on signUp displays immediately 
+
+            - Todo still 
+                - 1. Auto scroll to top of signup on signUp error (a ref is needed)
+                    - Done 28/08
+                - 2. Redirect to Dash on signUp 
+                    - Done 28/08/
+                - 3. SignUp success feedback and dash (for now)
+                    - Done 28/08/
 - `TICKET 002 - SIGNIN 21/08/2022`
     - Form validation on signup - WIP
     - Handle form submission - WIP
@@ -54,7 +65,7 @@
         - Display success and redirect to dash (For now)
 
 - `TICKET 003 - Protect Admin routes 21/08/2022`
-    - Before implementing any new features 
+    - Before implementing any new features (`25/08/ - Done`)
         - Make admin routes protected 
 
 ## In Development
