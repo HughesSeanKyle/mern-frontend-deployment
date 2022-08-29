@@ -218,8 +218,10 @@ function SignIn(props) {
 								</FormLabel>
 							</FormControl>
 							<Button
+								disabled={!!errors.email || !!errors.password}
 								variant="brand"
 								fontSize="10px"
+								isLoading={isSubmitting}
 								type="submit"
 								w="100%"
 								maxW="350px"
