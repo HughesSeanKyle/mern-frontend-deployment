@@ -1,4 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { signIn } from '../../actions/auth';
+import PropTypes from 'prop-types';
+
 // Chakra imports
 import {
 	Alert,
@@ -40,7 +44,9 @@ const schema = yup.object().shape({
 	password: yup.string().required(),
 });
 
-function SignIn() {
+function SignIn(props) {
+	const { signIn, auth } = props;
+
 	const {
 		register,
 		getValues,
@@ -51,20 +57,29 @@ function SignIn() {
 		resolver: yupResolver(schema),
 	});
 
-	// useEffect(() => {
-	// 	var requestOptions = {
-	// 		method: 'GET',
-	// 		redirect: 'follow',
-	// 	};
+	const [signInError, setSignInError] = useState(null);
 
-	// 	fetch(
-	// 		'https://aqueous-retreat-11852.herokuapp.com/test-get',
-	// 		requestOptions
-	// 	)
-	// 		.then((response) => response.text())
-	// 		.then((result) => console.log(result))
-	// 		.catch((error) => console.log('error', error));
-	// }, []);
+	useEffect(() => {
+		if (auth.signInSuccess) {
+			console.log('Huston you have go for dashboard. Redirecting..');
+			props.history.push('/admin/dashboard');
+		}
+
+		// Side effect for when auth state contains any errors
+		if (auth.errors) {
+			console.log('Huston we got an error');
+			// can handle specific status code errors from here
+			setSignInError(auth.errors[0].msg);
+		}
+	}, [auth]);
+
+	const handleSignIn = async ({ email, password }, e) => {
+		try {
+			await signIn({ email, password });
+		} catch (err) {
+			console.log('err', err.message);
+		}
+	};
 
 	const titleColor = 'white';
 	const textColor = 'gray.400';
@@ -109,7 +124,13 @@ function SignIn() {
 						>
 							Enter your email and password to sign in
 						</Text>
-						<form onSubmit={handleSubmit('')}>
+						{signInError ? (
+							<Alert mb="18px" status="error">
+								<AlertIcon />
+								<AlertTitle>{signInError}</AlertTitle>
+							</Alert>
+						) : null}
+						<form onSubmit={handleSubmit(handleSignIn)}>
 							<FormControl
 								isInvalid={!!errors?.email}
 								errortext={errors?.email?.message}
@@ -282,4 +303,13 @@ function SignIn() {
 	);
 }
 
-export default SignIn;
+SignIn.propTypes = {
+	auth: PropTypes.object.isRequired,
+	signIn: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+	auth: state.auth,
+});
+
+export default connect(mapStateToProps, { signIn })(SignIn);
