@@ -58,11 +58,10 @@
                 - 3. SignUp success feedback and dash (for now)
                     - Done 28/08/
 - `TICKET 002 - SIGNIN 21/08/2022`
-    - Form validation on signup - WIP
+    - Form validation on signup - `Complete 29/08`
     - Handle form submission - WIP
     - Handle form submission success/errors - WIP 
         - Display errors on form
-        - Display success and redirect to dash (For now)
 
 - `TICKET 003 - Protect Admin routes 21/08/2022`
     - Before implementing any new features (`25/08/ - Done`)

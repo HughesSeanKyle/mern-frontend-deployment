@@ -37,17 +37,7 @@ const schema = yup.object().shape({
 			'Invalid Email'
 		)
 		.required(),
-	password: yup
-		.string()
-		.matches(
-			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]?)[A-Za-z\d\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{8,}$/,
-			'Password must contain minimum 8 characters, atleast one lowercase letter, uppercase letter, number'
-		)
-		.required(),
-	passwordConfirm: yup
-		.string()
-		.required('Confirm Password is required')
-		.oneOf([yup.ref('password')], 'Passwords must and should match'),
+	password: yup.string().required(),
 });
 
 function SignIn() {
@@ -59,26 +49,22 @@ function SignIn() {
 	} = useForm({
 		mode: 'onBlur',
 		resolver: yupResolver(schema),
-		defaultValues: {
-			email: '',
-			password: '',
-		},
 	});
 
-	useEffect(() => {
-		var requestOptions = {
-			method: 'GET',
-			redirect: 'follow',
-		};
+	// useEffect(() => {
+	// 	var requestOptions = {
+	// 		method: 'GET',
+	// 		redirect: 'follow',
+	// 	};
 
-		fetch(
-			'https://aqueous-retreat-11852.herokuapp.com/test-get',
-			requestOptions
-		)
-			.then((response) => response.text())
-			.then((result) => console.log(result))
-			.catch((error) => console.log('error', error));
-	}, []);
+	// 	fetch(
+	// 		'https://aqueous-retreat-11852.herokuapp.com/test-get',
+	// 		requestOptions
+	// 	)
+	// 		.then((response) => response.text())
+	// 		.then((result) => console.log(result))
+	// 		.catch((error) => console.log('error', error));
+	// }, []);
 
 	const titleColor = 'white';
 	const textColor = 'gray.400';
@@ -123,17 +109,11 @@ function SignIn() {
 						>
 							Enter your email and password to sign in
 						</Text>
-						<Text
-							mb="36px"
-							ms="4px"
-							color={textColor}
-							fontWeight="bold"
-							fontSize="14px"
-						>
-							Netlify Auto Deploy test
-						</Text>
 						<form onSubmit={handleSubmit('')}>
-							<FormControl>
+							<FormControl
+								isInvalid={!!errors?.email}
+								errortext={errors?.email?.message}
+							>
 								<FormLabel
 									ms="4px"
 									fontSize="sm"
@@ -146,6 +126,7 @@ function SignIn() {
 									mb="24px"
 									w={{ base: '100%', lg: 'fit-content' }}
 									borderRadius="20px"
+									mb={!!errors?.email ? '0px' : '24px'}
 								>
 									<Input
 										color="white"
@@ -158,10 +139,17 @@ function SignIn() {
 										maxW="100%"
 										h="46px"
 										placeholder="Your email adress"
+										{...register('email')}
 									/>
 								</GradientBorder>
+								<FormErrorMessage mb="24px">
+									{errors?.email?.message}
+								</FormErrorMessage>
 							</FormControl>
-							<FormControl>
+							<FormControl
+								isInvalid={!!errors?.password}
+								errortext={errors?.password?.message}
+							>
 								<FormLabel
 									ms="4px"
 									fontSize="sm"
@@ -174,6 +162,7 @@ function SignIn() {
 									mb="24px"
 									w={{ base: '100%', lg: 'fit-content' }}
 									borderRadius="20px"
+									mb={!!errors?.password ? '0px' : '24px'}
 								>
 									<Input
 										color="white"
@@ -186,8 +175,12 @@ function SignIn() {
 										maxW="100%"
 										type="password"
 										placeholder="Your password"
+										{...register('password')}
 									/>
 								</GradientBorder>
+								<FormErrorMessage mb="24px">
+									{errors?.password?.message}
+								</FormErrorMessage>
 							</FormControl>
 							<FormControl display="flex" alignItems="center">
 								<DarkMode>
