@@ -4,6 +4,8 @@ import {
 	REGISTER_FAIL,
 	USER_LOADED,
 	AUTH_ERROR,
+	LOGIN_SUCCESS,
+	LOGIN_FAIL,
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 
@@ -76,6 +78,50 @@ export const signUp = ({ username, email, password }) => async (dispatch) => {
 
 		dispatch({
 			type: REGISTER_FAIL,
+			// Payload must always be an object
+			payload: err.response.data.errors,
+		});
+	}
+};
+
+// Sign user in
+// Register a user axios
+export const signIn = ({ email, password }) => async (dispatch) => {
+	const config = {
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	};
+
+	const body = JSON.stringify({
+		email: email,
+		password: password,
+	});
+
+	try {
+		const res = await axios.post(
+			'https://aqueous-retreat-11852.herokuapp.com/api/auth',
+			body,
+			config
+		);
+
+		// console.log('resSignUp', res);
+
+		// if (res.data.errors) {
+		// 	console.log('errors', res.data.errors);
+		// }
+
+		dispatch({
+			type: LOGIN_SUCCESS,
+			payload: res.data,
+		});
+
+		//   dispatch(loadUser());
+	} catch (err) {
+		console.log('err', err.response.data);
+
+		dispatch({
+			type: LOGIN_FAIL,
 			// Payload must always be an object
 			payload: err.response.data.errors,
 		});

@@ -32,17 +32,6 @@ function Dashboard(props) {
 	console.log('rest', rest);
 
 	React.useEffect(() => {
-		console.log('authState', props.authState);
-		// If no valid JWT redirect to auth
-		// const checkAuthState = async () => {
-		// 	let authStatus = await props.authState.isAuthenticated;
-		// 	if (authStatus === false) {
-		// 		rest.history.push('/auth');
-		// 	}
-		// };
-
-		// checkAuthState();
-
 		if (props.authState.isAuthenticated === false) {
 			rest.history.push('/auth');
 		}

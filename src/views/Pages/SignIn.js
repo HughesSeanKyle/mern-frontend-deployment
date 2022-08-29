@@ -1,4 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { signIn } from '../../actions/auth';
+import PropTypes from 'prop-types';
+
 // Chakra imports
 import {
 	Alert,
@@ -37,20 +41,12 @@ const schema = yup.object().shape({
 			'Invalid Email'
 		)
 		.required(),
-	password: yup
-		.string()
-		.matches(
-			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]?)[A-Za-z\d\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{8,}$/,
-			'Password must contain minimum 8 characters, atleast one lowercase letter, uppercase letter, number'
-		)
-		.required(),
-	passwordConfirm: yup
-		.string()
-		.required('Confirm Password is required')
-		.oneOf([yup.ref('password')], 'Passwords must and should match'),
+	password: yup.string().required(),
 });
 
-function SignIn() {
+function SignIn(props) {
+	const { signIn, auth } = props;
+
 	const {
 		register,
 		getValues,
@@ -59,26 +55,31 @@ function SignIn() {
 	} = useForm({
 		mode: 'onBlur',
 		resolver: yupResolver(schema),
-		defaultValues: {
-			email: '',
-			password: '',
-		},
 	});
 
-	useEffect(() => {
-		var requestOptions = {
-			method: 'GET',
-			redirect: 'follow',
-		};
+	const [signInError, setSignInError] = useState(null);
 
-		fetch(
-			'https://aqueous-retreat-11852.herokuapp.com/test-get',
-			requestOptions
-		)
-			.then((response) => response.text())
-			.then((result) => console.log(result))
-			.catch((error) => console.log('error', error));
-	}, []);
+	useEffect(() => {
+		if (auth.signInSuccess) {
+			console.log('Huston you have go for dashboard. Redirecting..');
+			props.history.push('/admin/dashboard');
+		}
+
+		// Side effect for when auth state contains any errors
+		if (auth.errors) {
+			console.log('Huston we got an error');
+			// can handle specific status code errors from here
+			setSignInError(auth.errors[0].msg);
+		}
+	}, [auth]);
+
+	const handleSignIn = async ({ email, password }, e) => {
+		try {
+			await signIn({ email, password });
+		} catch (err) {
+			console.log('err', err.message);
+		}
+	};
 
 	const titleColor = 'white';
 	const textColor = 'gray.400';
@@ -123,17 +124,17 @@ function SignIn() {
 						>
 							Enter your email and password to sign in
 						</Text>
-						<Text
-							mb="36px"
-							ms="4px"
-							color={textColor}
-							fontWeight="bold"
-							fontSize="14px"
-						>
-							Netlify Auto Deploy test
-						</Text>
-						<form onSubmit={handleSubmit('')}>
-							<FormControl>
+						{signInError ? (
+							<Alert mb="18px" status="error">
+								<AlertIcon />
+								<AlertTitle>{signInError}</AlertTitle>
+							</Alert>
+						) : null}
+						<form onSubmit={handleSubmit(handleSignIn)}>
+							<FormControl
+								isInvalid={!!errors?.email}
+								errortext={errors?.email?.message}
+							>
 								<FormLabel
 									ms="4px"
 									fontSize="sm"
@@ -146,6 +147,7 @@ function SignIn() {
 									mb="24px"
 									w={{ base: '100%', lg: 'fit-content' }}
 									borderRadius="20px"
+									mb={!!errors?.email ? '0px' : '24px'}
 								>
 									<Input
 										color="white"
@@ -158,10 +160,17 @@ function SignIn() {
 										maxW="100%"
 										h="46px"
 										placeholder="Your email adress"
+										{...register('email')}
 									/>
 								</GradientBorder>
+								<FormErrorMessage mb="24px">
+									{errors?.email?.message}
+								</FormErrorMessage>
 							</FormControl>
-							<FormControl>
+							<FormControl
+								isInvalid={!!errors?.password}
+								errortext={errors?.password?.message}
+							>
 								<FormLabel
 									ms="4px"
 									fontSize="sm"
@@ -174,6 +183,7 @@ function SignIn() {
 									mb="24px"
 									w={{ base: '100%', lg: 'fit-content' }}
 									borderRadius="20px"
+									mb={!!errors?.password ? '0px' : '24px'}
 								>
 									<Input
 										color="white"
@@ -186,8 +196,12 @@ function SignIn() {
 										maxW="100%"
 										type="password"
 										placeholder="Your password"
+										{...register('password')}
 									/>
 								</GradientBorder>
+								<FormErrorMessage mb="24px">
+									{errors?.password?.message}
+								</FormErrorMessage>
 							</FormControl>
 							<FormControl display="flex" alignItems="center">
 								<DarkMode>
@@ -289,4 +303,13 @@ function SignIn() {
 	);
 }
 
-export default SignIn;
+SignIn.propTypes = {
+	auth: PropTypes.object.isRequired,
+	signIn: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+	auth: state.auth,
+});
+
+export default connect(mapStateToProps, { signIn })(SignIn);

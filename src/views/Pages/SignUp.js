@@ -116,9 +116,6 @@ function SignUp(props) {
 		} catch (err) {
 			console.log('err', err.message);
 		}
-
-		// *Works
-		// await signup(username, email, password);
 	};
 
 	console.log('RHF Errors', errors);
