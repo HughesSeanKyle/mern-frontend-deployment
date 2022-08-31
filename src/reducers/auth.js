@@ -5,6 +5,7 @@ import {
 	AUTH_ERROR,
 	LOGIN_SUCCESS,
 	LOGIN_FAIL,
+	LOGOUT,
 } from '../actions/types';
 
 const initialState = {
@@ -55,6 +56,7 @@ export default function (state = initialState, action) {
 		case REGISTER_FAIL:
 		case AUTH_ERROR:
 		case LOGIN_FAIL:
+		case LOGOUT:
 			// Prevent an invalid token in local storage
 			sessionStorage.removeItem('token');
 			return {
@@ -64,6 +66,7 @@ export default function (state = initialState, action) {
 				loading: false,
 				errors: payload,
 				signUpSuccess: null,
+				user: null,
 			};
 		default:
 			return state;

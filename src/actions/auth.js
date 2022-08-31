@@ -6,6 +6,7 @@ import {
 	AUTH_ERROR,
 	LOGIN_SUCCESS,
 	LOGIN_FAIL,
+	LOGOUT,
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 
@@ -126,4 +127,9 @@ export const signIn = ({ email, password }) => async (dispatch) => {
 			payload: err.response.data.errors,
 		});
 	}
+};
+
+// Logout
+export const signOut = () => (dispatch) => {
+	dispatch({ type: LOGOUT });
 };
