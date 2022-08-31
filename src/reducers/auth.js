@@ -5,10 +5,11 @@ import {
 	AUTH_ERROR,
 	LOGIN_SUCCESS,
 	LOGIN_FAIL,
+	LOGOUT,
 } from '../actions/types';
 
 const initialState = {
-	token: localStorage.getItem('token'),
+	token: sessionStorage.getItem('token'),
 	isAuthenticated: null,
 	loading: true,
 	user: null,
@@ -31,7 +32,7 @@ export default function (state = initialState, action) {
 				errors: null,
 			};
 		case REGISTER_SUCCESS:
-			localStorage.setItem('token', payload.token);
+			sessionStorage.setItem('token', payload.token);
 			return {
 				...state,
 				...payload,
@@ -41,7 +42,7 @@ export default function (state = initialState, action) {
 				errors: null,
 			};
 		case LOGIN_SUCCESS:
-			localStorage.setItem('token', payload.token);
+			sessionStorage.setItem('token', payload.token);
 			return {
 				...state,
 				...payload,
@@ -55,8 +56,9 @@ export default function (state = initialState, action) {
 		case REGISTER_FAIL:
 		case AUTH_ERROR:
 		case LOGIN_FAIL:
+		case LOGOUT:
 			// Prevent an invalid token in local storage
-			localStorage.removeItem('token');
+			sessionStorage.removeItem('token');
 			return {
 				...state,
 				token: null,
@@ -64,6 +66,7 @@ export default function (state = initialState, action) {
 				loading: false,
 				errors: payload,
 				signUpSuccess: null,
+				user: null,
 			};
 		default:
 			return state;

@@ -32,13 +32,13 @@ function Dashboard(props) {
 	console.log('rest', rest);
 
 	React.useEffect(() => {
-		if (props.authState.isAuthenticated === false) {
+		if (props.authState.isAuthenticated === false || !sessionStorage.token) {
 			rest.history.push('/auth');
 		}
 
-		if (localStorage.token) {
+		if (sessionStorage.token) {
 			// Set auth-x-token as default header in axios call
-			setAuthToken(localStorage.token);
+			setAuthToken(sessionStorage.token);
 		}
 
 		// Pass isAuthenticated down to all children of this route. If isAuthenticated is false (E.g token expires or invalid) then redirect user to auth/signin

@@ -15,8 +15,6 @@ import theme from 'theme/themeAuth.js';
 import PropTypes from 'prop-types';
 
 function Pages(props) {
-	// loadUser();
-
 	const { ...rest } = props;
 	// ref for the wrapper div
 	const wrapper = React.createRef();
@@ -27,12 +25,12 @@ function Pages(props) {
 	});
 
 	React.useEffect(() => {
-		if (localStorage.token) {
+		if (sessionStorage.token) {
 			// Set auth-x-token as default header in axios call
-			setAuthToken(localStorage.token);
+			setAuthToken(sessionStorage.token);
 		}
 
-		props.loadUser();
+		loadUser();
 		// store.dispatch(loadUser());
 		// Specify how to clean up after this effect:
 		return function cleanup() {};
