@@ -70,9 +70,14 @@
 - `TICKET 004 - SignOUT and navbar logic 21/08/2022`
     - Before implementing any new features (`25/08/ - Done`)
         - Make admin routes protected 
+    - Handle auth conditional logic 
+        - e.g 
+            - 1. showing signOut btn
+            - 2. Ensure side menu does not have any auth logic when in admin and vice versa
+    - Handle redux portion of signout function  
 
 ## In Development
-- `TICKET 001 - SIGNUP 21/08/2022`
+- `TICKET 001 - SIGNUP 21/08/2022 Done`
 - `NOTE! - VERY IMPORTANT`
     - Do this before developing further
         - Deploy to Heroku and set up a deployment pipeline with github actions 

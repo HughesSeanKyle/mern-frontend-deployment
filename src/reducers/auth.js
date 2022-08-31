@@ -8,7 +8,7 @@ import {
 } from '../actions/types';
 
 const initialState = {
-	token: localStorage.getItem('token'),
+	token: sessionStorage.getItem('token'),
 	isAuthenticated: null,
 	loading: true,
 	user: null,
@@ -31,7 +31,7 @@ export default function (state = initialState, action) {
 				errors: null,
 			};
 		case REGISTER_SUCCESS:
-			localStorage.setItem('token', payload.token);
+			sessionStorage.setItem('token', payload.token);
 			return {
 				...state,
 				...payload,
@@ -41,7 +41,7 @@ export default function (state = initialState, action) {
 				errors: null,
 			};
 		case LOGIN_SUCCESS:
-			localStorage.setItem('token', payload.token);
+			sessionStorage.setItem('token', payload.token);
 			return {
 				...state,
 				...payload,
@@ -56,7 +56,7 @@ export default function (state = initialState, action) {
 		case AUTH_ERROR:
 		case LOGIN_FAIL:
 			// Prevent an invalid token in local storage
-			localStorage.removeItem('token');
+			sessionStorage.removeItem('token');
 			return {
 				...state,
 				token: null,
