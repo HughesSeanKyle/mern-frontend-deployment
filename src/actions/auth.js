@@ -18,10 +18,10 @@ export const loadUser = () => async (dispatch) => {
 	console.log('loadUser running..');
 
 	// Set auth header with token if there is one
-	if (localStorage.token) {
-		// Set auth-x-token as default header in axios call
-		setAuthToken(localStorage.token);
-	}
+	// if (sessionStorage.token) {
+	// 	// Set auth-x-token as default header in axios call
+	// 	setAuthToken(sessionStorage.token);
+	// }
 
 	try {
 		const res = await axios.get(
