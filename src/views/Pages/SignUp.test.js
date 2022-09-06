@@ -12,15 +12,20 @@ import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import React, { useState as useStateMock } from 'react';
 import { createMemoryHistory } from 'history';
 
+import { Provider } from 'react-redux';
+import store from '../../store';
+
 // Clean up all state used before running next test
 beforeEach(cleanup);
 
 describe('<SignUp />', () => {
 	it('renders the Signup page', () => {
 		const { getByText } = render(
-			<BrowserRouter>
-				<SignUp />
-			</BrowserRouter>
+			<Provider store={store}>
+				<BrowserRouter>
+					<SignUp />
+				</BrowserRouter>
+			</Provider>
 		);
 
 		expect(getByText(/Register with/i)).toBeInTheDocument();
@@ -28,9 +33,11 @@ describe('<SignUp />', () => {
 
 	it('renders 4 input components', () => {
 		const { getByTestId } = render(
-			<BrowserRouter>
-				<SignUp />
-			</BrowserRouter>
+			<Provider store={store}>
+				<BrowserRouter>
+					<SignUp />
+				</BrowserRouter>
+			</Provider>
 		);
 
 		expect(getByTestId('sign-up-input-username')).toBeInTheDocument();
@@ -41,9 +48,11 @@ describe('<SignUp />', () => {
 
 	it('Should check if signUp form input fields are empty', async () => {
 		const { getByTestId } = render(
-			<BrowserRouter>
-				<SignUp />
-			</BrowserRouter>
+			<Provider store={store}>
+				<BrowserRouter>
+					<SignUp />
+				</BrowserRouter>
+			</Provider>
 		);
 
 		expect(getByTestId('sign-up-input-username')).toHaveValue('');
@@ -54,9 +63,11 @@ describe('<SignUp />', () => {
 
 	it('Should have enabled signUp btn on init render', async () => {
 		const { getByText } = render(
-			<BrowserRouter>
-				<SignUp />
-			</BrowserRouter>
+			<Provider store={store}>
+				<BrowserRouter>
+					<SignUp />
+				</BrowserRouter>
+			</Provider>
 		);
 		expect(getByText(/SIGN UP/i).closest('button')).toBeEnabled();
 	});
@@ -64,9 +75,11 @@ describe('<SignUp />', () => {
 	it('Should validate inputs when signup is clicked and no input information is present', async () => {
 		// Arrange
 		const { getByText, getByTestId } = render(
-			<BrowserRouter>
-				<SignUp />
-			</BrowserRouter>
+			<Provider store={store}>
+				<BrowserRouter>
+					<SignUp />
+				</BrowserRouter>
+			</Provider>
 		);
 
 		// Simulate SignUp button click (Act)
@@ -91,9 +104,11 @@ describe('<SignUp />', () => {
 	it('Should validate username input when touched, no info provided and touch ends', async () => {
 		// Arrange
 		const { getByText, getByTestId } = render(
-			<BrowserRouter>
-				<SignUp />
-			</BrowserRouter>
+			<Provider store={store}>
+				<BrowserRouter>
+					<SignUp />
+				</BrowserRouter>
+			</Provider>
 		);
 
 		// Simulate click on field and leave without providing info (Act)
@@ -113,9 +128,11 @@ describe('<SignUp />', () => {
 	it('Should validate username input when touched, more than 12 characters provided and touch ends', async () => {
 		// Arrange
 		const { getByText, getByTestId } = render(
-			<BrowserRouter>
-				<SignUp />
-			</BrowserRouter>
+			<Provider store={store}>
+				<BrowserRouter>
+					<SignUp />
+				</BrowserRouter>
+			</Provider>
 		);
 
 		// Provide more than 12 chars as username
@@ -137,9 +154,11 @@ describe('<SignUp />', () => {
 	it('Should validate email input when touched, no info provided and touch ends', async () => {
 		// Arrange
 		const { getByText, getByTestId } = render(
-			<BrowserRouter>
-				<SignUp />
-			</BrowserRouter>
+			<Provider store={store}>
+				<BrowserRouter>
+					<SignUp />
+				</BrowserRouter>
+			</Provider>
 		);
 
 		// Simulate click on field and leave without providing info (Act)
@@ -156,9 +175,11 @@ describe('<SignUp />', () => {
 	it('Should validate password input when touched, no info provided and touch ends', async () => {
 		// Arrange
 		const { getByText, getByTestId } = render(
-			<BrowserRouter>
-				<SignUp />
-			</BrowserRouter>
+			<Provider store={store}>
+				<BrowserRouter>
+					<SignUp />
+				</BrowserRouter>
+			</Provider>
 		);
 
 		// Simulate click on field and leave without providing info (Act)
@@ -179,9 +200,11 @@ describe('<SignUp />', () => {
 	it('Should validate password confirm input when touched, no info provided and touch ends', async () => {
 		// Arrange
 		const { getByText, getByTestId } = render(
-			<BrowserRouter>
-				<SignUp />
-			</BrowserRouter>
+			<Provider store={store}>
+				<BrowserRouter>
+					<SignUp />
+				</BrowserRouter>
+			</Provider>
 		);
 
 		// Simulate click on field and leave without providing info (Act)
@@ -199,9 +222,11 @@ describe('<SignUp />', () => {
 	it('Should validate if the password provided in password input matches value provided in confirm password input', async () => {
 		// Arrange
 		const { getByText, getByTestId } = render(
-			<BrowserRouter>
-				<SignUp />
-			</BrowserRouter>
+			<Provider store={store}>
+				<BrowserRouter>
+					<SignUp />
+				</BrowserRouter>
+			</Provider>
 		);
 
 		// Provide more than 12 chars as username
@@ -229,9 +254,11 @@ describe('<SignUp />', () => {
 	// Assert if signIn link is available
 	it('renders the signin link', () => {
 		const { getByText } = render(
-			<BrowserRouter>
-				<SignUp />
-			</BrowserRouter>
+			<Provider store={store}>
+				<BrowserRouter>
+					<SignUp />
+				</BrowserRouter>
+			</Provider>
 		);
 
 		expect(getByText(/Sign In/i)).toBeInTheDocument();
@@ -240,9 +267,11 @@ describe('<SignUp />', () => {
 	it('Should have signup enabled when correct info in inputs', async () => {
 		// Arrange
 		const { getByText, getByTestId } = render(
-			<BrowserRouter>
-				<SignUp />
-			</BrowserRouter>
+			<Provider store={store}>
+				<BrowserRouter>
+					<SignUp />
+				</BrowserRouter>
+			</Provider>
 		);
 
 		// Provide more than 12 chars as username
