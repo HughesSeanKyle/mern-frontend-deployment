@@ -42,6 +42,19 @@ describe('<SignIn />', () => {
 		);
 
 		expect(getByTestId('sign-in-input-email')).toBeInTheDocument();
-		// expect(getByTestId('sign-in-input-email')).toBeInTheDocument();
+		expect(getByTestId('sign-in-input-password')).toBeInTheDocument();
+	});
+
+	it('Should check if signIn form input fields are empty', async () => {
+		const { getByTestId } = render(
+			<Provider store={store}>
+				<BrowserRouter>
+					<SignIn />
+				</BrowserRouter>
+			</Provider>
+		);
+
+		expect(getByTestId('sign-in-input-email')).toHaveValue('');
+		expect(getByTestId('sign-in-input-password')).toHaveValue('');
 	});
 });
