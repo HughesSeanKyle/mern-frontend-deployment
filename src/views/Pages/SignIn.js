@@ -150,6 +150,7 @@ function SignIn(props) {
 									mb={!!errors?.email ? '0px' : '24px'}
 								>
 									<Input
+										data-testid="sign-in-input-email"
 										color="white"
 										bg="rgb(19,21,54)"
 										border="transparent"
@@ -186,6 +187,7 @@ function SignIn(props) {
 									mb={!!errors?.password ? '0px' : '24px'}
 								>
 									<Input
+										data-testid="sign-in-input-password"
 										color="white"
 										bg="rgb(19,21,54)"
 										border="transparent"

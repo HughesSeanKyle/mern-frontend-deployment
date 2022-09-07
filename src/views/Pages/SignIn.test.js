@@ -31,4 +31,17 @@ describe('<SignIn />', () => {
 			getByText(/Enter your email and password to sign in/i)
 		).toBeInTheDocument();
 	});
+
+	it('renders 2 input components', () => {
+		const { getByTestId } = render(
+			<Provider store={store}>
+				<BrowserRouter>
+					<SignIn />
+				</BrowserRouter>
+			</Provider>
+		);
+
+		expect(getByTestId('sign-in-input-email')).toBeInTheDocument();
+		// expect(getByTestId('sign-in-input-email')).toBeInTheDocument();
+	});
 });
