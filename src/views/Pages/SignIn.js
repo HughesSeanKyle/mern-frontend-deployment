@@ -220,6 +220,7 @@ function SignIn(props) {
 								</FormLabel>
 							</FormControl>
 							<Button
+								data-testid="sign-in-btn"
 								disabled={!!errors.email || !!errors.password}
 								variant="brand"
 								fontSize="10px"

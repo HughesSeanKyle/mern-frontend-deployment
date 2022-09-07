@@ -57,4 +57,15 @@ describe('<SignIn />', () => {
 		expect(getByTestId('sign-in-input-email')).toHaveValue('');
 		expect(getByTestId('sign-in-input-password')).toHaveValue('');
 	});
+
+	it('Should have enabled signIn btn on init render', async () => {
+		const { getByTestId } = render(
+			<Provider store={store}>
+				<BrowserRouter>
+					<SignIn />
+				</BrowserRouter>
+			</Provider>
+		);
+		expect(getByTestId('sign-in-btn')).toBeEnabled();
+	});
 });
