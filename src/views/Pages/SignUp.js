@@ -97,7 +97,7 @@ function SignUp(props) {
 	useEffect(() => {
 		if (auth.signUpSuccess) {
 			console.log('Huston you have go for dashboard. Redirecting..');
-			props.history.push('/admin/dashboard');
+			props.history.push('/admin/profile');
 		}
 
 		// Side effect for when auth state contains any errors

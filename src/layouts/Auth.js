@@ -29,8 +29,8 @@ function Pages(props) {
 			// Set auth-x-token as default header in axios call
 			setAuthToken(sessionStorage.token);
 		}
-
 		loadUser();
+
 		// store.dispatch(loadUser());
 		// Specify how to clean up after this effect:
 		return function cleanup() {};

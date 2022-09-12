@@ -65,6 +65,7 @@ export default function (state = initialState, action) {
 				isAuthenticated: false,
 				loading: false,
 				errors: payload,
+				signInSuccess: null,
 				signUpSuccess: null,
 				user: null,
 			};

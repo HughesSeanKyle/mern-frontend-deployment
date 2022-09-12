@@ -62,7 +62,7 @@ function SignIn(props) {
 	useEffect(() => {
 		if (auth.signInSuccess) {
 			console.log('Huston you have go for dashboard. Redirecting..');
-			props.history.push('/admin/dashboard');
+			props.history.push('/admin/profile');
 		}
 
 		// Side effect for when auth state contains any errors
@@ -150,6 +150,7 @@ function SignIn(props) {
 									mb={!!errors?.email ? '0px' : '24px'}
 								>
 									<Input
+										data-testid="sign-in-input-email"
 										color="white"
 										bg="rgb(19,21,54)"
 										border="transparent"
@@ -186,6 +187,7 @@ function SignIn(props) {
 									mb={!!errors?.password ? '0px' : '24px'}
 								>
 									<Input
+										data-testid="sign-in-input-password"
 										color="white"
 										bg="rgb(19,21,54)"
 										border="transparent"
@@ -218,6 +220,7 @@ function SignIn(props) {
 								</FormLabel>
 							</FormControl>
 							<Button
+								data-testid="sign-in-btn"
 								disabled={!!errors.email || !!errors.password}
 								variant="brand"
 								fontSize="10px"
