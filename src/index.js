@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 import AuthLayout from 'layouts/Auth.js';
 import AdminLayout from 'layouts/Admin.js';
@@ -11,13 +11,13 @@ import store from './store';
 
 ReactDOM.render(
 	<Provider store={store}>
-		<HashRouter>
+		<BrowserRouter>
 			<Switch>
 				<Route path={`/auth`} component={AuthLayout} />
 				<Route path={`/admin`} component={AdminLayout} />
 				<Redirect from={`/`} to="/auth/signin" />
 			</Switch>
-		</HashRouter>
+		</BrowserRouter>
 	</Provider>,
 	document.getElementById('root')
 );
