@@ -143,7 +143,8 @@ function SignUp(props) {
 					mx={{ base: 'auto', lg: 'unset' }}
 					ms={{ base: 'auto', lg: 'auto' }}
 					mb="50px"
-					w={{ base: '100%', md: '50%', lg: '42%' }}
+					mt="102px"
+					w={{ base: '100%', md: '50%', lg: '100%' }}
 				>
 					<GradientBorder p="2px" me={{ base: 'none', lg: '30px', xl: 'none' }}>
 						<Flex
@@ -151,7 +152,7 @@ function SignUp(props) {
 							borderRadius="30px"
 							direction="column"
 							p="40px"
-							minW={{ base: 'unset', md: '430px', xl: '450px' }}
+							minW={{ base: 'unset', md: '430px', xl: '72vh' }}
 							w="100%"
 							mx={{ base: '0px' }}
 							bg={{
