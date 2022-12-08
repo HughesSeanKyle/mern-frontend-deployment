@@ -24,9 +24,7 @@ export const loadUser = () => async (dispatch) => {
 	// }
 
 	try {
-		const res = await axios.get(
-			'https://aqueous-retreat-11852.herokuapp.com/api/auth'
-		);
+		const res = await axios.get('https://niftyswap.onrender.com/auth');
 
 		console.log('res loadUser', res);
 
@@ -57,7 +55,7 @@ export const signUp = ({ username, email, password }) => async (dispatch) => {
 
 	try {
 		const res = await axios.post(
-			'https://aqueous-retreat-11852.herokuapp.com/api/user',
+			'https://niftyswap.onrender.com/user',
 			body,
 			config
 		);
@@ -101,7 +99,7 @@ export const signIn = ({ email, password }) => async (dispatch) => {
 
 	try {
 		const res = await axios.post(
-			'https://aqueous-retreat-11852.herokuapp.com/api/auth',
+			'https://niftyswap.onrender.com/auth',
 			body,
 			config
 		);
