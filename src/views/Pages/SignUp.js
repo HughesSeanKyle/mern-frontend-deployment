@@ -18,6 +18,7 @@ import {
 	AlertTitle,
 	AlertDescription,
 	Box,
+	Divider,
 	Flex,
 	Button,
 	FormControl,
@@ -151,250 +152,466 @@ function SignUp(props) {
 						position="relative"
 						right={{ base: '0', md: '100px', lg: '149px' }}
 					>
-						<Flex
-							background="transparent"
-							borderRadius="30px"
-							direction="column"
-							p="40px"
-							minW={{ base: 'unset', md: '900px', xl: '72vh' }}
-							w="100%"
-							mx={{ base: '0px' }}
-							bg={{
-								base: 'rgb(19,21,56)',
-							}}
-						>
-							{signUpError ? (
-								<Alert mb="18px" status="error">
-									<AlertIcon />
-									<AlertTitle>{signUpError}</AlertTitle>
-								</Alert>
-							) : null}
-							<form onSubmit={handleSubmit(handleSignUp)}>
-								<FormControl
-									isInvalid={!!errors?.username}
-									errortext={errors?.username?.message}
-								>
-									<FormLabel
-										color={titleColor}
-										ms="4p"
-										fontSize="sm"
-										fontWeight="normal"
-									>
-										Username
-									</FormLabel>
-
-									<GradientBorder
-										h="50px"
-										w={{ base: '100%', lg: 'fit-content' }}
-										borderRadius="20px"
-										mb={!!errors?.username ? '0px' : '24px'}
-									>
-										<Input
-											data-testid="sign-up-input-username"
-											color={titleColor}
-											bg={{
-												base: 'rgb(19,21,54)',
-											}}
-											border="transparent"
-											borderRadius="20px"
-											fontSize="sm"
-											size="lg"
-											w={{ base: '100%', md: '346px' }}
-											maxW="100%"
-											h="46px"
-											type="text"
-											name="username"
-											placeholder="Your username"
-											{...register('username')}
-										/>
-									</GradientBorder>
-									<FormErrorMessage mb="24px">
-										{errors?.username?.message}
-									</FormErrorMessage>
-								</FormControl>
-								<FormControl
-									isInvalid={!!errors?.email}
-									errortext={errors?.email?.message}
-								>
-									<FormLabel
-										color={titleColor}
-										ms="4px"
-										fontSize="sm"
-										fontWeight="normal"
-									>
-										Email
-									</FormLabel>
-									<GradientBorder
-										mb="24px"
-										h="50px"
-										w={{ base: '100%', lg: 'fit-content' }}
-										borderRadius="20px"
-										mb={!!errors?.email ? '0px' : '24px'}
-									>
-										<Input
-											color={titleColor}
-											bg={{
-												base: 'rgb(19,21,54)',
-											}}
-											border="transparent"
-											borderRadius="20px"
-											fontSize="sm"
-											size="lg"
-											w={{ base: '100%', md: '346px' }}
-											maxW="100%"
-											h="46px"
-											type="email"
-											placeholder="Your email address"
-											name="email"
-											{...register('email')}
-											data-testid="sign-up-input-email"
-										/>
-									</GradientBorder>
-									<FormErrorMessage mb="24px">
-										{errors?.email?.message}
-									</FormErrorMessage>
-								</FormControl>
-								<FormControl
-									isInvalid={!!errors?.password}
-									errortext={errors?.password?.message}
-								>
-									<FormLabel
-										color={titleColor}
-										ms="4px"
-										fontSize="sm"
-										fontWeight="normal"
-									>
-										Password
-									</FormLabel>
-									<GradientBorder
-										mb="24px"
-										h="50px"
-										w={{ base: '100%', lg: 'fit-content' }}
-										borderRadius="20px"
-										mb={!!errors?.password ? '0px' : '24px'}
-									>
-										<Input
-											color={titleColor}
-											bg={{
-												base: 'rgb(19,21,54)',
-											}}
-											border="transparent"
-											borderRadius="20px"
-											fontSize="sm"
-											size="lg"
-											w={{ base: '100%', md: '346px' }}
-											maxW="100%"
-											h="46px"
-											type="password"
-											placeholder="Your password"
-											name="password"
-											{...register('password')}
-											data-testid="sign-up-input-password"
-										/>
-									</GradientBorder>
-									<FormErrorMessage mb="24px">
-										{errors?.password?.message}
-									</FormErrorMessage>
-								</FormControl>
-								<FormControl
-									isInvalid={!!errors?.passwordConfirm}
-									errortext={errors?.passwordConfirm?.message}
-								>
-									<FormLabel
-										color={titleColor}
-										ms="4px"
-										fontSize="sm"
-										fontWeight="normal"
-									>
-										Confirm Password
-									</FormLabel>
-									<GradientBorder
-										mb="24px"
-										h="50px"
-										w={{ base: '100%', lg: 'fit-content' }}
-										borderRadius="20px"
-										mb={!!errors?.passwordConfirm ? '0px' : '24px'}
-									>
-										<Input
-											color={titleColor}
-											bg={{
-												base: 'rgb(19,21,54)',
-											}}
-											border="transparent"
-											borderRadius="20px"
-											fontSize="sm"
-											size="lg"
-											w={{ base: '100%', md: '346px' }}
-											maxW="100%"
-											h="46px"
-											type="password"
-											name="passwordConfirm"
-											placeholder="Confirm password"
-											{...register('passwordConfirm')}
-											data-testid="sign-up-input-confirm-password"
-										/>
-									</GradientBorder>
-									<FormErrorMessage mb="24px">
-										{errors?.passwordConfirm?.message}
-									</FormErrorMessage>
-								</FormControl>
-								<FormControl display="flex" alignItems="center" mb="24px">
-									<DarkMode>
-										<Switch id="remember-login" colorScheme="brand" me="10px" />
-									</DarkMode>
-
-									<FormLabel
-										color={titleColor}
-										htmlFor="remember-login"
-										mb="0"
-										fontWeight="normal"
-									>
-										Remember me
-									</FormLabel>
-								</FormControl>
-								<Button
-									disabled={
-										!!errors.username ||
-										!!errors.email ||
-										!!errors.password ||
-										!!errors.passwordConfirm
-									}
-									data-testid="sign-up-button"
-									isLoading={isSubmitting}
-									variant="brand"
-									fontSize="10px"
-									type="submit"
-									w="100%"
-									maxW="350px"
-									h="45"
-									mb="20px"
-									mt="20px"
-								>
-									SIGN UP
-								</Button>
-							</form>
+						{signUpError ? (
+							<Alert mb="18px" status="error">
+								<AlertIcon />
+								<AlertTitle>{signUpError}</AlertTitle>
+							</Alert>
+						) : null}
+						<form onSubmit={handleSubmit(handleSignUp)}>
 							<Flex
-								flexDirection="column"
-								justifyContent="center"
-								alignItems="center"
-								maxW="100%"
-								mt="0px"
+								background="transparent"
+								borderRadius="30px"
+								direction="row"
+								justify="space-between"
+								p="40px"
+								minW={{ base: 'unset', md: '900px', xl: '72vh' }}
+								w="100%"
+								mx={{ base: '0px' }}
+								bg={{
+									base: 'rgb(19,21,56)',
+								}}
 							>
-								<Text color={textColor} fontWeight="medium">
-									Already have an account?
-									<Link
-										color={titleColor}
-										as="span"
-										ms="5px"
-										href="#"
-										fontWeight="bold"
+								<Flex direction="column">
+									<FormControl
+										isInvalid={!!errors?.username}
+										errortext={errors?.username?.message}
 									>
-										Sign In
-									</Link>
-								</Text>
+										<FormLabel
+											color={titleColor}
+											ms="4p"
+											fontSize="sm"
+											fontWeight="normal"
+										>
+											Username
+										</FormLabel>
+
+										<GradientBorder
+											h="50px"
+											w={{ base: '100%', lg: 'fit-content' }}
+											borderRadius="20px"
+											mb={!!errors?.username ? '0px' : '24px'}
+										>
+											<Input
+												data-testid="sign-up-input-username"
+												color={titleColor}
+												bg={{
+													base: 'rgb(19,21,54)',
+												}}
+												border="transparent"
+												borderRadius="20px"
+												fontSize="sm"
+												size="lg"
+												w={{ base: '100%', md: '346px' }}
+												maxW="100%"
+												h="46px"
+												type="text"
+												name="username"
+												placeholder="Your username"
+												{...register('username')}
+											/>
+										</GradientBorder>
+										<FormErrorMessage mb="24px">
+											{errors?.username?.message}
+										</FormErrorMessage>
+									</FormControl>
+									<FormControl
+										isInvalid={!!errors?.email}
+										errortext={errors?.email?.message}
+									>
+										<FormLabel
+											color={titleColor}
+											ms="4px"
+											fontSize="sm"
+											fontWeight="normal"
+										>
+											Email
+										</FormLabel>
+										<GradientBorder
+											mb="24px"
+											h="50px"
+											w={{ base: '100%', lg: 'fit-content' }}
+											borderRadius="20px"
+											mb={!!errors?.email ? '0px' : '24px'}
+										>
+											<Input
+												color={titleColor}
+												bg={{
+													base: 'rgb(19,21,54)',
+												}}
+												border="transparent"
+												borderRadius="20px"
+												fontSize="sm"
+												size="lg"
+												w={{ base: '100%', md: '346px' }}
+												maxW="100%"
+												h="46px"
+												type="email"
+												placeholder="Your email address"
+												name="email"
+												{...register('email')}
+												data-testid="sign-up-input-email"
+											/>
+										</GradientBorder>
+										<FormErrorMessage mb="24px">
+											{errors?.email?.message}
+										</FormErrorMessage>
+									</FormControl>
+									<FormControl
+										isInvalid={!!errors?.password}
+										errortext={errors?.password?.message}
+									>
+										<FormLabel
+											color={titleColor}
+											ms="4px"
+											fontSize="sm"
+											fontWeight="normal"
+										>
+											Password
+										</FormLabel>
+										<GradientBorder
+											mb="24px"
+											h="50px"
+											w={{ base: '100%', lg: 'fit-content' }}
+											borderRadius="20px"
+											mb={!!errors?.password ? '0px' : '24px'}
+										>
+											<Input
+												color={titleColor}
+												bg={{
+													base: 'rgb(19,21,54)',
+												}}
+												border="transparent"
+												borderRadius="20px"
+												fontSize="sm"
+												size="lg"
+												w={{ base: '100%', md: '346px' }}
+												maxW="100%"
+												h="46px"
+												type="password"
+												placeholder="Your password"
+												name="password"
+												{...register('password')}
+												data-testid="sign-up-input-password"
+											/>
+										</GradientBorder>
+										<FormErrorMessage mb="24px">
+											{errors?.password?.message}
+										</FormErrorMessage>
+									</FormControl>
+									<FormControl
+										isInvalid={!!errors?.passwordConfirm}
+										errortext={errors?.passwordConfirm?.message}
+									>
+										<FormLabel
+											color={titleColor}
+											ms="4px"
+											fontSize="sm"
+											fontWeight="normal"
+										>
+											Confirm Password
+										</FormLabel>
+										<GradientBorder
+											mb="24px"
+											h="50px"
+											w={{ base: '100%', lg: 'fit-content' }}
+											borderRadius="20px"
+											mb={!!errors?.passwordConfirm ? '0px' : '24px'}
+										>
+											<Input
+												color={titleColor}
+												bg={{
+													base: 'rgb(19,21,54)',
+												}}
+												border="transparent"
+												borderRadius="20px"
+												fontSize="sm"
+												size="lg"
+												w={{ base: '100%', md: '346px' }}
+												maxW="100%"
+												h="46px"
+												type="password"
+												name="passwordConfirm"
+												placeholder="Confirm password"
+												{...register('passwordConfirm')}
+												data-testid="sign-up-input-confirm-password"
+											/>
+										</GradientBorder>
+										<FormErrorMessage mb="24px">
+											{errors?.passwordConfirm?.message}
+										</FormErrorMessage>
+									</FormControl>
+									<FormControl display="flex" alignItems="center" mb="24px">
+										<DarkMode>
+											<Switch
+												id="remember-login"
+												colorScheme="brand"
+												me="10px"
+											/>
+										</DarkMode>
+
+										<FormLabel
+											color={titleColor}
+											htmlFor="remember-login"
+											mb="0"
+											fontWeight="normal"
+										>
+											Remember me
+										</FormLabel>
+									</FormControl>
+									<Button
+										disabled={
+											!!errors.username ||
+											!!errors.email ||
+											!!errors.password ||
+											!!errors.passwordConfirm
+										}
+										data-testid="sign-up-button"
+										isLoading={isSubmitting}
+										variant="brand"
+										fontSize="10px"
+										type="submit"
+										w="100%"
+										maxW="350px"
+										h="45"
+										mb="20px"
+										mt="20px"
+									>
+										SIGN UP
+									</Button>
+								</Flex>
+								<Divider height="450px" orientation="vertical" />
+								<Flex direction="column">
+									<FormControl
+										isInvalid={!!errors?.username}
+										errortext={errors?.username?.message}
+									>
+										<FormLabel
+											color={titleColor}
+											ms="4p"
+											fontSize="sm"
+											fontWeight="normal"
+										>
+											Username
+										</FormLabel>
+
+										<GradientBorder
+											h="50px"
+											w={{ base: '100%', lg: 'fit-content' }}
+											borderRadius="20px"
+											mb={!!errors?.username ? '0px' : '24px'}
+										>
+											<Input
+												data-testid="sign-up-input-username"
+												color={titleColor}
+												bg={{
+													base: 'rgb(19,21,54)',
+												}}
+												border="transparent"
+												borderRadius="20px"
+												fontSize="sm"
+												size="lg"
+												w={{ base: '100%', md: '346px' }}
+												maxW="100%"
+												h="46px"
+												type="text"
+												name="username"
+												placeholder="Your username"
+												{...register('username')}
+											/>
+										</GradientBorder>
+										<FormErrorMessage mb="24px">
+											{errors?.username?.message}
+										</FormErrorMessage>
+									</FormControl>
+									<FormControl
+										isInvalid={!!errors?.email}
+										errortext={errors?.email?.message}
+									>
+										<FormLabel
+											color={titleColor}
+											ms="4px"
+											fontSize="sm"
+											fontWeight="normal"
+										>
+											Email
+										</FormLabel>
+										<GradientBorder
+											mb="24px"
+											h="50px"
+											w={{ base: '100%', lg: 'fit-content' }}
+											borderRadius="20px"
+											mb={!!errors?.email ? '0px' : '24px'}
+										>
+											<Input
+												color={titleColor}
+												bg={{
+													base: 'rgb(19,21,54)',
+												}}
+												border="transparent"
+												borderRadius="20px"
+												fontSize="sm"
+												size="lg"
+												w={{ base: '100%', md: '346px' }}
+												maxW="100%"
+												h="46px"
+												type="email"
+												placeholder="Your email address"
+												name="email"
+												{...register('email')}
+												data-testid="sign-up-input-email"
+											/>
+										</GradientBorder>
+										<FormErrorMessage mb="24px">
+											{errors?.email?.message}
+										</FormErrorMessage>
+									</FormControl>
+									<FormControl
+										isInvalid={!!errors?.password}
+										errortext={errors?.password?.message}
+									>
+										<FormLabel
+											color={titleColor}
+											ms="4px"
+											fontSize="sm"
+											fontWeight="normal"
+										>
+											Password
+										</FormLabel>
+										<GradientBorder
+											mb="24px"
+											h="50px"
+											w={{ base: '100%', lg: 'fit-content' }}
+											borderRadius="20px"
+											mb={!!errors?.password ? '0px' : '24px'}
+										>
+											<Input
+												color={titleColor}
+												bg={{
+													base: 'rgb(19,21,54)',
+												}}
+												border="transparent"
+												borderRadius="20px"
+												fontSize="sm"
+												size="lg"
+												w={{ base: '100%', md: '346px' }}
+												maxW="100%"
+												h="46px"
+												type="password"
+												placeholder="Your password"
+												name="password"
+												{...register('password')}
+												data-testid="sign-up-input-password"
+											/>
+										</GradientBorder>
+										<FormErrorMessage mb="24px">
+											{errors?.password?.message}
+										</FormErrorMessage>
+									</FormControl>
+									<FormControl
+										isInvalid={!!errors?.passwordConfirm}
+										errortext={errors?.passwordConfirm?.message}
+									>
+										<FormLabel
+											color={titleColor}
+											ms="4px"
+											fontSize="sm"
+											fontWeight="normal"
+										>
+											Confirm Password
+										</FormLabel>
+										<GradientBorder
+											mb="24px"
+											h="50px"
+											w={{ base: '100%', lg: 'fit-content' }}
+											borderRadius="20px"
+											mb={!!errors?.passwordConfirm ? '0px' : '24px'}
+										>
+											<Input
+												color={titleColor}
+												bg={{
+													base: 'rgb(19,21,54)',
+												}}
+												border="transparent"
+												borderRadius="20px"
+												fontSize="sm"
+												size="lg"
+												w={{ base: '100%', md: '346px' }}
+												maxW="100%"
+												h="46px"
+												type="password"
+												name="passwordConfirm"
+												placeholder="Confirm password"
+												{...register('passwordConfirm')}
+												data-testid="sign-up-input-confirm-password"
+											/>
+										</GradientBorder>
+										<FormErrorMessage mb="24px">
+											{errors?.passwordConfirm?.message}
+										</FormErrorMessage>
+									</FormControl>
+									<FormControl display="flex" alignItems="center" mb="24px">
+										<DarkMode>
+											<Switch
+												id="remember-login"
+												colorScheme="brand"
+												me="10px"
+											/>
+										</DarkMode>
+
+										<FormLabel
+											color={titleColor}
+											htmlFor="remember-login"
+											mb="0"
+											fontWeight="normal"
+										>
+											Remember me
+										</FormLabel>
+									</FormControl>
+									<Button
+										disabled={
+											!!errors.username ||
+											!!errors.email ||
+											!!errors.password ||
+											!!errors.passwordConfirm
+										}
+										data-testid="sign-up-button"
+										isLoading={isSubmitting}
+										variant="brand"
+										fontSize="10px"
+										type="submit"
+										w="100%"
+										maxW="350px"
+										h="45"
+										mb="20px"
+										mt="20px"
+									>
+										SIGN UP
+									</Button>
+								</Flex>
 							</Flex>
-						</Flex>
+						</form>
 					</GradientBorder>
+				</Flex>
+				<Flex
+					flexDirection="column"
+					justifyContent="center"
+					alignItems="center"
+					maxW="100%"
+					mt="0px"
+				>
+					<Text color={textColor} fontWeight="medium">
+						Already have an account?
+						<Link
+							color={titleColor}
+							as="span"
+							ms="5px"
+							href="#"
+							fontWeight="bold"
+						>
+							Sign In
+						</Link>
+					</Text>
 				</Flex>
 				<Box
 					w={{ base: '335px', md: '450px' }}
