@@ -37,9 +37,7 @@ import {
 import { FaApple, FaFacebook, FaGoogle } from 'react-icons/fa';
 // Custom Components
 import GradientBorder from 'components/GradientBorder/GradientBorder';
-import FormSlideOne from 'components/Forms/SignUpSlides/FormSlideOne';
-import FormSlideTwo from 'components/Forms/SignUpSlides/FormSlideTwo';
-import FormSlideThree from 'components/Forms/SignUpSlides/FormSlideThree';
+import FormSlide from 'components/Forms/SignUpSlides/FormSlide';
 
 // Assets
 import signUpImage from 'assets/img/signUpImage.png';
@@ -126,13 +124,13 @@ function SignUp(props) {
 	console.log('formStep outside', formStep);
 
 	const handleFormClickNext = () => {
-		if (formStep < 4) {
+		if (formStep < 8) {
 			let slideNum = formStep;
 			slideNum = slideNum + 1;
 			setFormStep(slideNum);
 		}
 
-		if (formStep === 3) {
+		if (formStep === 7) {
 			setFormStep(1);
 		}
 		console.log('formStep NEXT', formStep);
@@ -146,7 +144,7 @@ function SignUp(props) {
 		}
 
 		if (formStep === 1) {
-			setFormStep(3);
+			setFormStep(7);
 		}
 
 		console.log('formStep Prev', formStep);
@@ -204,9 +202,13 @@ function SignUp(props) {
 									base: 'rgb(19,21,56)',
 								}}
 							>
-								{formStep === 1 && <FormSlideOne />}
-								{formStep === 2 && <FormSlideTwo />}
-								{formStep === 3 && <FormSlideThree />}
+								{formStep === 1 && <FormSlide color={'red'} />}
+								{formStep === 2 && <FormSlide color={'green'} />}
+								{formStep === 3 && <FormSlide color={'blue'} />}
+								{formStep === 4 && <FormSlide color={'purple'} />}
+								{formStep === 5 && <FormSlide color={'yellow'} />}
+								{formStep === 6 && <FormSlide color={'cyan'} />}
+								{formStep === 7 && <FormSlide color={'blue'} />}
 
 								<FormControl display="flex" alignItems="center" mb="24px">
 									<DarkMode>

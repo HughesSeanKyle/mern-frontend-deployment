@@ -22,8 +22,9 @@ import {
 	DarkMode,
 } from '@chakra-ui/react';
 
-const FormSlideOne = () => {
-	return <Box height="500px" width="100%" backgroundColor="red"></Box>;
+const FormSlide = ({ color }) => {
+	const slideColor = ['red', 'blue', 'green'];
+	return <Box height="500px" width="100%" backgroundColor={color}></Box>;
 };
 
-export default FormSlideOne;
+export default FormSlide;
