@@ -164,6 +164,7 @@ function SignUp(props) {
 								borderRadius="30px"
 								direction="row"
 								justify="space-between"
+								flexWrap="wrap"
 								p="40px"
 								minW={{ base: 'unset', md: '900px', xl: '72vh' }}
 								w="100%"
@@ -341,44 +342,6 @@ function SignUp(props) {
 											{errors?.passwordConfirm?.message}
 										</FormErrorMessage>
 									</FormControl>
-									<FormControl display="flex" alignItems="center" mb="24px">
-										<DarkMode>
-											<Switch
-												id="remember-login"
-												colorScheme="brand"
-												me="10px"
-											/>
-										</DarkMode>
-
-										<FormLabel
-											color={titleColor}
-											htmlFor="remember-login"
-											mb="0"
-											fontWeight="normal"
-										>
-											Remember me
-										</FormLabel>
-									</FormControl>
-									<Button
-										disabled={
-											!!errors.username ||
-											!!errors.email ||
-											!!errors.password ||
-											!!errors.passwordConfirm
-										}
-										data-testid="sign-up-button"
-										isLoading={isSubmitting}
-										variant="brand"
-										fontSize="10px"
-										type="submit"
-										w="100%"
-										maxW="350px"
-										h="45"
-										mb="20px"
-										mt="20px"
-									>
-										SIGN UP
-									</Button>
 								</Flex>
 								<Divider height="450px" orientation="vertical" />
 								<Flex direction="column">
@@ -550,45 +513,41 @@ function SignUp(props) {
 											{errors?.passwordConfirm?.message}
 										</FormErrorMessage>
 									</FormControl>
-									<FormControl display="flex" alignItems="center" mb="24px">
-										<DarkMode>
-											<Switch
-												id="remember-login"
-												colorScheme="brand"
-												me="10px"
-											/>
-										</DarkMode>
-
-										<FormLabel
-											color={titleColor}
-											htmlFor="remember-login"
-											mb="0"
-											fontWeight="normal"
-										>
-											Remember me
-										</FormLabel>
-									</FormControl>
-									<Button
-										disabled={
-											!!errors.username ||
-											!!errors.email ||
-											!!errors.password ||
-											!!errors.passwordConfirm
-										}
-										data-testid="sign-up-button"
-										isLoading={isSubmitting}
-										variant="brand"
-										fontSize="10px"
-										type="submit"
-										w="100%"
-										maxW="350px"
-										h="45"
-										mb="20px"
-										mt="20px"
-									>
-										SIGN UP
-									</Button>
 								</Flex>
+								<FormControl display="flex" alignItems="center" mb="24px">
+									<DarkMode>
+										<Switch id="remember-login" colorScheme="brand" me="10px" />
+									</DarkMode>
+
+									<FormLabel
+										color={titleColor}
+										htmlFor="remember-login"
+										mb="0"
+										fontWeight="normal"
+									>
+										Remember me
+									</FormLabel>
+								</FormControl>
+								<Button
+									disabled={
+										!!errors.username ||
+										!!errors.email ||
+										!!errors.password ||
+										!!errors.passwordConfirm
+									}
+									data-testid="sign-up-button"
+									isLoading={isSubmitting}
+									variant="brand"
+									fontSize="10px"
+									type="submit"
+									w="100%"
+									// maxW="350px"
+									h="45"
+									mb="20px"
+									mt="20px"
+								>
+									SIGN UP
+								</Button>
 							</Flex>
 						</form>
 					</GradientBorder>
