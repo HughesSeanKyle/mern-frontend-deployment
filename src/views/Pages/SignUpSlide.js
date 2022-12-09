@@ -130,7 +130,9 @@ function SignUp(props) {
 			let slideNum = formStep;
 			slideNum = slideNum + 1;
 			setFormStep(slideNum);
-		} else {
+		}
+
+		if (formStep === 3) {
 			setFormStep(1);
 		}
 		console.log('formStep NEXT', formStep);
@@ -141,7 +143,9 @@ function SignUp(props) {
 			let slideNum = formStep;
 			slideNum = slideNum - 1;
 			setFormStep(slideNum);
-		} else {
+		}
+
+		if (formStep === 1) {
 			setFormStep(3);
 		}
 
