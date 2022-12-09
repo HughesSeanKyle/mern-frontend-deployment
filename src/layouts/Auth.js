@@ -107,7 +107,7 @@ function Pages(props) {
 				<Portal containerRef={navRef}>
 					<AuthNavbar
 						secondary={getActiveNavbar(routes)}
-						logoText="MERN-PROJECT"
+						logoText="NiFTy<>$Wap"
 					/>
 				</Portal>
 				<Box w="100%">

@@ -143,13 +143,13 @@ function SignUp(props) {
 					mx={{ base: 'auto', lg: 'unset' }}
 					ms={{ base: 'auto', lg: 'auto' }}
 					mb="50px"
-					mt="102px"
+					mt={{ base: '0', lg: '102px' }}
 					w={{ base: '100%', md: '50%', lg: '100%' }}
 				>
 					<GradientBorder
 						p="2px"
 						position="relative"
-						right={{ base: '100%', md: '100px', lg: '100px', xl: '149px' }}
+						right={{ base: '0', md: '100px', lg: '149px' }}
 					>
 						<Flex
 							background="transparent"
