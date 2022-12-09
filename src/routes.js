@@ -5,6 +5,7 @@ import Billing from 'views/Dashboard/Billing.js';
 import Profile from 'views/Dashboard/Profile.js';
 import SignIn from 'views/Pages/SignIn.js';
 import SignUp from 'views/Pages/SignUp.js';
+import SignUpSlide from 'views/Pages/SignUpSlide.js';
 
 import {
 	HomeIcon,
@@ -60,7 +61,7 @@ var dashRoutes = [
 		name: 'Sign Up',
 		icon: <RocketIcon color="inherit" />,
 		secondaryNavbar: true,
-		component: SignUp,
+		component: SignUpSlide,
 		layout: '/auth',
 	},
 ];

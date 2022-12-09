@@ -29,8 +29,8 @@ function Pages(props) {
 			// Set auth-x-token as default header in axios call
 			setAuthToken(sessionStorage.token);
 		}
-
 		loadUser();
+
 		// store.dispatch(loadUser());
 		// Specify how to clean up after this effect:
 		return function cleanup() {};
@@ -107,7 +107,7 @@ function Pages(props) {
 				<Portal containerRef={navRef}>
 					<AuthNavbar
 						secondary={getActiveNavbar(routes)}
-						logoText="MERN-PROJECT"
+						logoText="NiFTy<>$Wap"
 					/>
 				</Portal>
 				<Box w="100%">

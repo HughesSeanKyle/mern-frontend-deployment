@@ -48,7 +48,7 @@ function HeaderLinks(props) {
 	// SignOut redirect function
 	const signOutAndClearAuthState = () => {
 		signOut();
-		history.push('/auth');
+		history.push('/auth/signin');
 	};
 
 	// Chakra Color Mode

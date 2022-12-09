@@ -113,3 +113,14 @@
 ## Ready for development
 ## In Development 
 ## Complete
+
+# Application Features and Goals
+# Description
+- 'DecentraFund' is an open source blockchain project that will allow users to post their startup ideas online and potentially get funding or seed capital. Investors will get tokens in return and floor price will be available to all from the start. Users can share their insights on the crypto market, get credibility by amount of user donations for market insights provided (Only by blog for now). Content provider can 'lock' certain content to higher donors etc.. 
+
+- `Marketing mint`
+    - Link + pump
+    - portion of all 
+    - link affiliate 
+        - wallet 
+    - Dd marketing

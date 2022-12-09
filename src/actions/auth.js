@@ -18,15 +18,13 @@ export const loadUser = () => async (dispatch) => {
 	console.log('loadUser running..');
 
 	// Set auth header with token if there is one
-	if (localStorage.token) {
-		// Set auth-x-token as default header in axios call
-		setAuthToken(localStorage.token);
-	}
+	// if (sessionStorage.token) {
+	// 	// Set auth-x-token as default header in axios call
+	// 	setAuthToken(sessionStorage.token);
+	// }
 
 	try {
-		const res = await axios.get(
-			'https://aqueous-retreat-11852.herokuapp.com/api/auth'
-		);
+		const res = await axios.get('https://niftyswap-kxzt.onrender.com/auth');
 
 		console.log('res loadUser', res);
 
@@ -57,7 +55,7 @@ export const signUp = ({ username, email, password }) => async (dispatch) => {
 
 	try {
 		const res = await axios.post(
-			'https://aqueous-retreat-11852.herokuapp.com/api/user',
+			'https://niftyswap-kxzt.onrender.com/user',
 			body,
 			config
 		);
@@ -101,7 +99,7 @@ export const signIn = ({ email, password }) => async (dispatch) => {
 
 	try {
 		const res = await axios.post(
-			'https://aqueous-retreat-11852.herokuapp.com/api/auth',
+			'https://niftyswap-kxzt.onrender.com/auth',
 			body,
 			config
 		);
