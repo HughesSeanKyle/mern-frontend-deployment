@@ -346,90 +346,6 @@ function SignUp(props) {
 								<Divider height="450px" orientation="vertical" />
 								<Flex direction="column">
 									<FormControl
-										isInvalid={!!errors?.username}
-										errortext={errors?.username?.message}
-									>
-										<FormLabel
-											color={titleColor}
-											ms="4p"
-											fontSize="sm"
-											fontWeight="normal"
-										>
-											Username
-										</FormLabel>
-
-										<GradientBorder
-											h="50px"
-											w={{ base: '100%', lg: 'fit-content' }}
-											borderRadius="20px"
-											mb={!!errors?.username ? '0px' : '24px'}
-										>
-											<Input
-												data-testid="sign-up-input-username"
-												color={titleColor}
-												bg={{
-													base: 'rgb(19,21,54)',
-												}}
-												border="transparent"
-												borderRadius="20px"
-												fontSize="sm"
-												size="lg"
-												w={{ base: '100%', md: '346px' }}
-												maxW="100%"
-												h="46px"
-												type="text"
-												name="username"
-												placeholder="Your username"
-												{...register('username')}
-											/>
-										</GradientBorder>
-										<FormErrorMessage mb="24px">
-											{errors?.username?.message}
-										</FormErrorMessage>
-									</FormControl>
-									<FormControl
-										isInvalid={!!errors?.email}
-										errortext={errors?.email?.message}
-									>
-										<FormLabel
-											color={titleColor}
-											ms="4px"
-											fontSize="sm"
-											fontWeight="normal"
-										>
-											Email
-										</FormLabel>
-										<GradientBorder
-											mb="24px"
-											h="50px"
-											w={{ base: '100%', lg: 'fit-content' }}
-											borderRadius="20px"
-											mb={!!errors?.email ? '0px' : '24px'}
-										>
-											<Input
-												color={titleColor}
-												bg={{
-													base: 'rgb(19,21,54)',
-												}}
-												border="transparent"
-												borderRadius="20px"
-												fontSize="sm"
-												size="lg"
-												w={{ base: '100%', md: '346px' }}
-												maxW="100%"
-												h="46px"
-												type="email"
-												placeholder="Your email address"
-												name="email"
-												{...register('email')}
-												data-testid="sign-up-input-email"
-											/>
-										</GradientBorder>
-										<FormErrorMessage mb="24px">
-											{errors?.email?.message}
-										</FormErrorMessage>
-									</FormControl>
-									<FormControl
 										isInvalid={!!errors?.password}
 										errortext={errors?.password?.message}
 									>
@@ -551,27 +467,28 @@ function SignUp(props) {
 							</Flex>
 						</form>
 					</GradientBorder>
+					<Flex
+						flexDirection="row"
+						justifyContent="center"
+						alignItems="center"
+						maxW="100%"
+						mt="0px"
+					>
+						<Text color={textColor} fontWeight="medium">
+							Already have an account?
+							<Link
+								color={titleColor}
+								as="span"
+								ms="5px"
+								href="#"
+								fontWeight="bold"
+							>
+								Sign In
+							</Link>
+						</Text>
+					</Flex>
 				</Flex>
-				<Flex
-					flexDirection="column"
-					justifyContent="center"
-					alignItems="center"
-					maxW="100%"
-					mt="0px"
-				>
-					<Text color={textColor} fontWeight="medium">
-						Already have an account?
-						<Link
-							color={titleColor}
-							as="span"
-							ms="5px"
-							href="#"
-							fontWeight="bold"
-						>
-							Sign In
-						</Link>
-					</Text>
-				</Flex>
+
 				<Box
 					w={{ base: '335px', md: '450px' }}
 					mx={{ base: 'auto', lg: 'unset' }}
