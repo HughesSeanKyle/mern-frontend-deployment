@@ -133,11 +133,11 @@ function SignUp(props) {
 				mx="auto"
 				justifyContent="space-between"
 				pt={{ sm: '100px', md: '0px' }}
-				me={{ base: 'auto', lg: '50px', xl: 'auto' }}
+				me={{ base: 'auto', lg: '0px', xl: 'none' }}
 			>
 				<Flex
 					alignItems="center"
-					justifyContent="start"
+					justifyContent="center"
 					style={{ userSelect: 'none' }}
 					flexDirection="column"
 					mx={{ base: 'auto', lg: 'unset' }}
@@ -146,13 +146,17 @@ function SignUp(props) {
 					mt="102px"
 					w={{ base: '100%', md: '50%', lg: '100%' }}
 				>
-					<GradientBorder p="2px" me={{ base: 'none', lg: '30px', xl: 'none' }}>
+					<GradientBorder
+						p="2px"
+						position="relative"
+						right={{ base: '100%', md: '100px', lg: '100px', xl: '149px' }}
+					>
 						<Flex
 							background="transparent"
 							borderRadius="30px"
 							direction="column"
 							p="40px"
-							minW={{ base: 'unset', md: '430px', xl: '72vh' }}
+							minW={{ base: 'unset', md: '900px', xl: '72vh' }}
 							w="100%"
 							mx={{ base: '0px' }}
 							bg={{
