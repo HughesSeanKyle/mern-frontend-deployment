@@ -38,6 +38,8 @@ import { FaApple, FaFacebook, FaGoogle } from 'react-icons/fa';
 // Custom Components
 import GradientBorder from 'components/GradientBorder/GradientBorder';
 import FormSlideOne from 'components/Forms/SignUpSlides/FormSlideOne';
+import FormSlideTwo from 'components/Forms/SignUpSlides/FormSlideTwo';
+import FormSlideThree from 'components/Forms/SignUpSlides/FormSlideThree';
 
 // Assets
 import signUpImage from 'assets/img/signUpImage.png';
@@ -93,6 +95,7 @@ function SignUp(props) {
 
 	console.log('isSubmitting', isSubmitting);
 
+	const [formStep, setFormStep] = useState(1);
 	const [signUpError, setSignUpError] = useState(null);
 	const signUpErrorRef = useRef(null);
 
@@ -120,7 +123,30 @@ function SignUp(props) {
 		}
 	};
 
-	console.log('RHF Errors', errors);
+	console.log('formStep outside', formStep);
+
+	const handleFormClickNext = () => {
+		if (formStep < 4) {
+			let slideNum = formStep;
+			slideNum = slideNum + 1;
+			setFormStep(slideNum);
+		} else {
+			setFormStep(1);
+		}
+		console.log('formStep NEXT', formStep);
+	};
+
+	const handleFormClickPrev = () => {
+		if (formStep > 0) {
+			let slideNum = formStep;
+			slideNum = slideNum - 1;
+			setFormStep(slideNum);
+		} else {
+			setFormStep(3);
+		}
+
+		console.log('formStep Prev', formStep);
+	};
 
 	const titleColor = 'white';
 	const textColor = 'gray.400';
@@ -174,7 +200,10 @@ function SignUp(props) {
 									base: 'rgb(19,21,56)',
 								}}
 							>
-								<FormSlideOne />
+								{formStep === 1 && <FormSlideOne />}
+								{formStep === 2 && <FormSlideTwo />}
+								{formStep === 3 && <FormSlideThree />}
+
 								<FormControl display="flex" alignItems="center" mb="24px">
 									<DarkMode>
 										<Switch id="remember-login" colorScheme="brand" me="10px" />
@@ -189,6 +218,33 @@ function SignUp(props) {
 										Remember me
 									</FormLabel>
 								</FormControl>
+								<Button
+									onClick={() => handleFormClickPrev()}
+									variant="brand"
+									fontSize="10px"
+									type="submit"
+									w="40%"
+									// maxW="350px"
+									h="45"
+									mb="20px"
+									mt="20px"
+								>
+									Previous
+								</Button>
+								<Divider height="45px" orientation="vertical" />
+								<Button
+									onClick={() => handleFormClickNext()}
+									variant="brand"
+									fontSize="10px"
+									type="submit"
+									w="40%"
+									// maxW="350px"
+									h="45"
+									mb="20px"
+									mt="20px"
+								>
+									Next
+								</Button>
 								<Button
 									disabled={
 										!!errors.username ||
