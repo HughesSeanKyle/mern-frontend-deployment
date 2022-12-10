@@ -7,9 +7,10 @@ import {
 	AlertTitle,
 	AlertDescription,
 	Box,
+	Button,
+	Center,
 	Divider,
 	Flex,
-	Button,
 	FormControl,
 	FormLabel,
 	FormErrorMessage,
@@ -21,6 +22,7 @@ import {
 	Text,
 	Icon,
 	DarkMode,
+	VStack,
 } from '@chakra-ui/react';
 
 const FormSlide = ({ formSlideData, slideNumber }) => {
@@ -37,7 +39,42 @@ const FormSlide = ({ formSlideData, slideNumber }) => {
 						justify="center"
 						alignContent="center"
 					>
-						<Heading>{slide.heading}</Heading>
+						<Center height="100" width="100%">
+							<VStack
+								divider={<Divider width="270px" orientation="horizontal" />}
+								spacing={4}
+								align="stretch"
+							>
+								<Heading>{slide.heading}</Heading>
+
+								<FormControl>
+									<FormLabel
+										color="blue"
+										ms="4px"
+										fontSize="sm"
+										fontWeight="normal"
+									>
+										Password
+									</FormLabel>
+									<Input
+										color="blue"
+										bg={{
+											base: 'rgb(19,21,54)',
+										}}
+										border="transparent"
+										borderRadius="20px"
+										fontSize="sm"
+										size="lg"
+										w={{ base: '100%', md: '346px' }}
+										maxW="100%"
+										h="46px"
+										type="password"
+										placeholder="Your password"
+										name="password"
+									/>
+								</FormControl>
+							</VStack>
+						</Center>
 					</Flex>
 				</Box>
 			)
