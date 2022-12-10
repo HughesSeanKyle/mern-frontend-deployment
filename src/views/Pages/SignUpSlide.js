@@ -42,6 +42,9 @@ import FormSlide from 'components/Forms/SignUpSlides/FormSlide';
 // Assets
 import signUpImage from 'assets/img/signUpImage.png';
 
+// Dummy data
+import { signUpFormSlideText } from 'variables/general';
+
 // Form input Validation
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
@@ -93,7 +96,7 @@ function SignUp(props) {
 
 	console.log('isSubmitting', isSubmitting);
 
-	const [formStep, setFormStep] = useState(1);
+	const [formStep, setFormStep] = useState(0);
 	const [signUpError, setSignUpError] = useState(null);
 	const signUpErrorRef = useRef(null);
 
@@ -124,27 +127,27 @@ function SignUp(props) {
 	console.log('formStep outside', formStep);
 
 	const handleFormClickNext = () => {
-		if (formStep < 8) {
+		if (formStep < 7) {
 			let slideNum = formStep;
 			slideNum = slideNum + 1;
 			setFormStep(slideNum);
 		}
 
-		if (formStep === 7) {
-			setFormStep(1);
+		if (formStep === 6) {
+			setFormStep(0);
 		}
 		console.log('formStep NEXT', formStep);
 	};
 
 	const handleFormClickPrev = () => {
-		if (formStep > 0) {
+		if (formStep > -1) {
 			let slideNum = formStep;
 			slideNum = slideNum - 1;
 			setFormStep(slideNum);
 		}
 
-		if (formStep === 1) {
-			setFormStep(7);
+		if (formStep === 0) {
+			setFormStep(6);
 		}
 
 		console.log('formStep Prev', formStep);
@@ -202,27 +205,10 @@ function SignUp(props) {
 									base: 'rgb(19,21,56)',
 								}}
 							>
-								{formStep === 1 && (
-									<FormSlide heading={'Heading One'} color={'red'} />
-								)}
-								{formStep === 2 && (
-									<FormSlide heading={'Heading Two'} color={'green'} />
-								)}
-								{formStep === 3 && (
-									<FormSlide heading={'Heading Three'} color={'blue'} />
-								)}
-								{formStep === 4 && (
-									<FormSlide heading={'Heading Four'} color={'purple'} />
-								)}
-								{formStep === 5 && (
-									<FormSlide heading={'Heading Five'} color={'yellow'} />
-								)}
-								{formStep === 6 && (
-									<FormSlide heading={'Heading Six'} color={'cyan'} />
-								)}
-								{formStep === 7 && (
-									<FormSlide heading={'Heading Seven'} color={'blue'} />
-								)}
+								<FormSlide
+									formSlideData={signUpFormSlideText}
+									slideNumber={formStep}
+								/>
 
 								<FormControl display="flex" alignItems="center" mb="24px">
 									<DarkMode>

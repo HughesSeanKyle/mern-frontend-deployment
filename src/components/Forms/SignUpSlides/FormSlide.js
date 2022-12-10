@@ -23,14 +23,22 @@ import {
 	DarkMode,
 } from '@chakra-ui/react';
 
-const FormSlide = ({ color, heading }) => {
-	return (
-		<Box height="500px" width="100%" backgroundColor={color}>
-			<Flex height="100%" direction="column" justify="center" align="center">
-				<Heading>{heading}</Heading>
-			</Flex>
-		</Box>
-	);
+// const showSlides = formSlideData.map((slide) => {
+// 	return (
+// 		<div>
+// 			Helooe
+// 		</div>
+// 	)
+// }
+
+const FormSlide = ({ formSlideData, slideNumber }) => {
+	console.log('slideNumber', slideNumber);
+
+	return formSlideData.map((slide, index) => {
+		return index === slideNumber ? (
+			<Box height="500px" width="100%" backgroundColor={slide.color}></Box>
+		) : null;
+	});
 };
 
 export default FormSlide;
