@@ -202,13 +202,27 @@ function SignUp(props) {
 									base: 'rgb(19,21,56)',
 								}}
 							>
-								{formStep === 1 && <FormSlide color={'red'} />}
-								{formStep === 2 && <FormSlide color={'green'} />}
-								{formStep === 3 && <FormSlide color={'blue'} />}
-								{formStep === 4 && <FormSlide color={'purple'} />}
-								{formStep === 5 && <FormSlide color={'yellow'} />}
-								{formStep === 6 && <FormSlide color={'cyan'} />}
-								{formStep === 7 && <FormSlide color={'blue'} />}
+								{formStep === 1 && (
+									<FormSlide heading={'Heading One'} color={'red'} />
+								)}
+								{formStep === 2 && (
+									<FormSlide heading={'Heading Two'} color={'green'} />
+								)}
+								{formStep === 3 && (
+									<FormSlide heading={'Heading Three'} color={'blue'} />
+								)}
+								{formStep === 4 && (
+									<FormSlide heading={'Heading Four'} color={'purple'} />
+								)}
+								{formStep === 5 && (
+									<FormSlide heading={'Heading Five'} color={'yellow'} />
+								)}
+								{formStep === 6 && (
+									<FormSlide heading={'Heading Six'} color={'cyan'} />
+								)}
+								{formStep === 7 && (
+									<FormSlide heading={'Heading Seven'} color={'blue'} />
+								)}
 
 								<FormControl display="flex" alignItems="center" mb="24px">
 									<DarkMode>

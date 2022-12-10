@@ -13,6 +13,7 @@ import {
 	FormControl,
 	FormLabel,
 	FormErrorMessage,
+	Heading,
 	HStack,
 	Input,
 	Link,
@@ -22,9 +23,14 @@ import {
 	DarkMode,
 } from '@chakra-ui/react';
 
-const FormSlide = ({ color }) => {
-	const slideColor = ['red', 'blue', 'green'];
-	return <Box height="500px" width="100%" backgroundColor={color}></Box>;
+const FormSlide = ({ color, heading }) => {
+	return (
+		<Box height="500px" width="100%" backgroundColor={color}>
+			<Flex height="100%" direction="column" justify="center" align="center">
+				<Heading>{heading}</Heading>
+			</Flex>
+		</Box>
+	);
 };
 
 export default FormSlide;
