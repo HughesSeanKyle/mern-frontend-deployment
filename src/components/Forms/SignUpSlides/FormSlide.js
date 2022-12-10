@@ -29,7 +29,17 @@ const FormSlide = ({ formSlideData, slideNumber }) => {
 	return formSlideData.map((slide, index) => {
 		return (
 			index === slideNumber && (
-				<Box height="500px" width="100%" backgroundColor={slide.color}></Box>
+				<Box height="500px" width="100%" backgroundColor={slide.color}>
+					<Flex
+						height="100%"
+						flexWrap="wrap"
+						direction="column"
+						justify="center"
+						alignContent="center"
+					>
+						<Heading>{slide.heading}</Heading>
+					</Flex>
+				</Box>
 			)
 		);
 	});
