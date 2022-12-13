@@ -28,6 +28,8 @@ import {
 const FormSlide = ({ formSlideData, slideNumber }) => {
 	console.log('slideNumber', slideNumber);
 
+	const textColor = 'gray.400';
+
 	return formSlideData.map((slide, index) => {
 		return (
 			index === slideNumber && (
@@ -49,7 +51,7 @@ const FormSlide = ({ formSlideData, slideNumber }) => {
 
 								<FormControl>
 									<FormLabel
-										color="blue"
+										color={textColor}
 										ms="4px"
 										fontSize="sm"
 										fontWeight="normal"
@@ -57,7 +59,7 @@ const FormSlide = ({ formSlideData, slideNumber }) => {
 										Password
 									</FormLabel>
 									<Input
-										color="blue"
+										color={textColor}
 										bg={{
 											base: 'rgb(19,21,54)',
 										}}

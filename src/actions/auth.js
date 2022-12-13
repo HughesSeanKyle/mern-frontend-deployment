@@ -24,7 +24,7 @@ export const loadUser = () => async (dispatch) => {
 	// }
 
 	try {
-		const res = await axios.get('https://niftyswap-kxzt.onrender.com/auth');
+		const res = await axios.get('https://niftyswap.onrender.com/auth');
 
 		console.log('res loadUser', res);
 
@@ -55,7 +55,7 @@ export const signUp = ({ username, email, password }) => async (dispatch) => {
 
 	try {
 		const res = await axios.post(
-			'https://niftyswap-kxzt.onrender.com/user',
+			'https://niftyswap.onrender.com/user',
 			body,
 			config
 		);
@@ -99,7 +99,7 @@ export const signIn = ({ email, password }) => async (dispatch) => {
 
 	try {
 		const res = await axios.post(
-			'https://niftyswap-kxzt.onrender.com/auth',
+			'https://niftyswap.onrender.com/auth',
 			body,
 			config
 		);
