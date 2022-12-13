@@ -5,6 +5,7 @@ import Billing from 'views/Dashboard/Billing.js';
 import Profile from 'views/Dashboard/Profile.js';
 import SignIn from 'views/Pages/SignIn.js';
 import SignUp from 'views/Pages/SignUp.js';
+import SignUpSlide from 'views/Pages/SignUpSlide.js';
 
 import {
 	HomeIcon,

@@ -1,14 +1,20 @@
 // chakra imports
 import { Box, ChakraProvider, Portal } from '@chakra-ui/react';
 import Footer from 'components/Footer/Footer.js';
+// React-redux
+import { connect } from 'react-redux';
+import { loadUser } from 'actions/auth';
+import setAuthToken from 'utils/setAuthToken';
 // core components
 import AuthNavbar from 'components/Navbars/AuthNavbar.js';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import routes from 'routes.js';
 import theme from 'theme/themeAuth.js';
 
-export default function Pages(props) {
+import PropTypes from 'prop-types';
+
+function Pages(props) {
 	const { ...rest } = props;
 	// ref for the wrapper div
 	const wrapper = React.createRef();
@@ -17,6 +23,18 @@ export default function Pages(props) {
 		// Specify how to clean up after this effect:
 		return function cleanup() {};
 	});
+
+	React.useEffect(() => {
+		if (sessionStorage.token) {
+			// Set auth-x-token as default header in axios call
+			setAuthToken(sessionStorage.token);
+		}
+		loadUser();
+
+		// store.dispatch(loadUser());
+		// Specify how to clean up after this effect:
+		return function cleanup() {};
+	}, []);
 	const getActiveRoute = (routes) => {
 		let activeRoute = 'Default Brand Text';
 		for (let i = 0; i < routes.length; i++) {
@@ -89,14 +107,14 @@ export default function Pages(props) {
 				<Portal containerRef={navRef}>
 					<AuthNavbar
 						secondary={getActiveNavbar(routes)}
-						logoText="VISION UI FREE"
+						logoText="NiFTy<>$Wap"
 					/>
 				</Portal>
 				<Box w="100%">
 					<Box ref={wrapper} w="100%">
 						<Switch>
 							{getRoutes(routes)}
-							<Redirect from="/auth" to="/auth/login-page" />
+							<Redirect from="/auth" to="/auth/signin" />
 						</Switch>
 					</Box>
 				</Box>
@@ -104,3 +122,15 @@ export default function Pages(props) {
 		</ChakraProvider>
 	);
 }
+
+Pages.propTypes = {
+	auth: PropTypes.object.isRequired,
+	loadUser: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+	// Will now have props.alerts available to comp
+	auth: state.auth,
+});
+
+export default connect(mapStateToProps, { loadUser })(Pages);

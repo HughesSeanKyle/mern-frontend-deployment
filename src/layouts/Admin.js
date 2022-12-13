@@ -2,11 +2,16 @@
 import { ChakraProvider, Portal, useDisclosure } from '@chakra-ui/react';
 import Configurator from 'components/Configurator/Configurator';
 import Footer from 'components/Footer/Footer.js';
+// React-redux
+import { connect } from 'react-redux';
+import { loadUser } from 'actions/auth';
+import setAuthToken from 'utils/setAuthToken';
+import store from '../store';
 // Layout components
 import AdminNavbar from 'components/Navbars/AdminNavbar.js';
 import Sidebar from 'components/Sidebar/Sidebar.js';
 import React, { useState } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import routes from 'routes.js';
 // Custom Chakra theme
 import theme from 'theme/themeAdmin.js';
@@ -15,8 +20,34 @@ import FixedPlugin from '../components/FixedPlugin/FixedPlugin';
 import MainPanel from '../components/Layout/MainPanel';
 import PanelContainer from '../components/Layout/PanelContainer';
 import PanelContent from '../components/Layout/PanelContent';
-export default function Dashboard(props) {
+
+import PropTypes from 'prop-types';
+
+function Dashboard(props) {
+	console.log('Admin props', props);
+
+	const location = useLocation();
 	const { ...rest } = props;
+
+	console.log('rest', rest);
+
+	React.useEffect(() => {
+		if (props.authState.isAuthenticated === false || !sessionStorage.token) {
+			rest.history.push('/auth');
+		}
+
+		if (sessionStorage.token) {
+			// Set auth-x-token as default header in axios call
+			setAuthToken(sessionStorage.token);
+		}
+
+		// Pass isAuthenticated down to all children of this route. If isAuthenticated is false (E.g token expires or invalid) then redirect user to auth/signin
+		props.loadUser();
+		// Alternative to fire loadUser (above)
+		// store.dispatch(loadUser());
+		// Specify how to clean up after this effect:
+		return function cleanup() {};
+	}, []);
 	// states and functions
 	const [sidebarVariant, setSidebarVariant] = useState('transparent');
 	const [fixed, setFixed] = useState(false);
@@ -147,3 +178,15 @@ export default function Dashboard(props) {
 		</ChakraProvider>
 	);
 }
+
+Dashboard.propTypes = {
+	auth: PropTypes.object.isRequired,
+	loadUser: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+	// Will now have props.alerts available to comp
+	authState: state.auth,
+});
+
+export default connect(mapStateToProps, { loadUser })(Dashboard);
