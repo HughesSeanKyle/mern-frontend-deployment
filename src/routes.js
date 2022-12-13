@@ -61,7 +61,7 @@ var dashRoutes = [
 		name: 'Sign Up',
 		icon: <RocketIcon color="inherit" />,
 		secondaryNavbar: true,
-		component: SignUpSlide,
+		component: SignUp,
 		layout: '/auth',
 	},
 ];
